@@ -1,2 +1,0 @@
-# Elul
-App with flutter
