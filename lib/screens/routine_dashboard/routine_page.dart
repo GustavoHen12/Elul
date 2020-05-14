@@ -1,31 +1,15 @@
-import 'package:Elul/screens/routine_dashboard/routine_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-//initializeDateFormatting('pt_BR', null);
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: RoutinePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
+class RoutinePage extends StatefulWidget {
   
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _RoutinePageState createState() => _RoutinePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RoutinePageState extends State<RoutinePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +53,4 @@ class _MyHomePageState extends State<MyHomePage> {
         ],)
     );
   }
-
-  // Widget _buildGrid()
-  // {
-  //   return Container(child: Text('test'),);
-  // }
 }
