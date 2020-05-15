@@ -22,43 +22,52 @@ class _RoutinePageState extends State<RoutinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 238, 244, 237),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: theme.toggleTheme,
+        child: theme.isDark
+            ? Icon(Icons.brightness_high)
+            : Icon(Icons.brightness_2),
+      ),
+
       body: new SafeArea(
         child: Column(
           children: <Widget>[
-            //_buildHeader(),
+            _buildTop(),
+            _buildList(),
             //_buildGrid(),
           ],)
         )
     );
   }
 
-  Widget _buildHeader()
+  List _days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  Widget _buildList()
   {
-    var date = DateTime.now();
+    return Expanded(
+      child: ListView.builder(
+        itemCount: _days.length,
+        itemBuilder: (context, index){
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20), 
+              child: Text(_days[index], style: theme.theme.textTheme.headline3,),
+            );
+          }
+        )
+      );
+  }
 
-    String _day = 'Today';
-    String _date = DateFormat('E, d MMM').format(date);
-
+  Widget _buildTop()
+  {
     return new Container(
+      alignment: Alignment.bottomLeft,
       margin: EdgeInsets.only(top:15, left: 15),
-      child: Column(
-        children: <Widget>[
-          Container(child:
-          Text(_date, style: GoogleFonts.lato(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: Color.fromARGB(255, 141, 169, 196))
-          ))),
-          Container( child:
-          Text(_day, style: GoogleFonts.lato(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 34,
-                        color: Color.fromARGB(255, 11, 37, 69)) 
-          )))
-        ],)
+      child: RaisedButton(
+        onPressed: (){},
+        child: 
+          Text("New Activity")
+      , ) 
     );
   }
 }
