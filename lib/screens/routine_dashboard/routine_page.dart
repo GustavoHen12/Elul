@@ -1,7 +1,8 @@
+import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
 
 class RoutinePage extends StatefulWidget {
   
@@ -10,7 +11,14 @@ class RoutinePage extends StatefulWidget {
 }
 
 class _RoutinePageState extends State<RoutinePage> {
+  ThemeStore theme;
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    theme ??= Provider.of<ThemeStore>(context);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +26,7 @@ class _RoutinePageState extends State<RoutinePage> {
       body: new SafeArea(
         child: Column(
           children: <Widget>[
-            _buildHeader(),
+            //_buildHeader(),
             //_buildGrid(),
           ],)
         )

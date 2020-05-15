@@ -17,18 +17,24 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  #pega path da aplicacao
   path_provider: ^1.4.0
+  #banco de dados noSql
   hive: ^1.4.1+1
-  
+  #provider e shared para implementar dark/light theme
+  provider: ^4.0.5
+  shared_preferences: ^0.5.6+3
+  #mobX como gerenciador de estados
   flutter_mobx: ^1.0.0
   mobx: ^1.2.0
-  
+  #nao sei ora que serve ao certo ainda
   dio: ^3.0.4
   rxdart: ^0.22.6
   bloc_pattern: ^2.5.0
+  #para as fontes utilizadas
   google_fonts: "^1.1.0"
+  #para pegar a data e o horario
   intl: "^0.16.0"
-  
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2

@@ -1,8 +1,13 @@
 import 'package:Elul/screens/routine_dashboard/routine_page.dart';
+import 'package:Elul/themes/theme_repository.dart';
+import 'package:Elul/themes/theme_services.dart';
+import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
 
 //initializeDateFormatting('pt_BR', null);
 void main() => runApp(MyApp());
@@ -10,14 +15,38 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        Provider<ThemeStore>(
+            create: (_) =>
+                ThemeStore(ThemeService(ThemeRepository()))..getTheme())
+      ],
+      child: Consumer<ThemeStore>(
+        builder: (_, ThemeStore value, __) => Observer(
+          builder: (_) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Elul',
+            theme: value.theme,
+            home: RoutinePage(),
+          ),
+        ),
       ),
-      home: RoutinePage(),
     );
   }
 }
+
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: RoutinePage(),
+//     );
+//   }
+// }
 
 class MyHomePage extends StatefulWidget {
   
