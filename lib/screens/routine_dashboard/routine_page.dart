@@ -1,8 +1,20 @@
+import 'package:Elul/models/routineModel.dart';
+import 'package:Elul/screens/routine_dashboard/routine_services.dart';
+import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+
+class Routpage extends StatelessWidget {
+  //LocalStorageService service = new LocalStorageService();
+  @override
+  Widget build(BuildContext context) => Provider<RoutineController>(
+      create: (_) => RoutineController(),
+      child: RoutinePage() 
+    );
+}
+
 
 class RoutinePage extends StatefulWidget {
   
@@ -16,13 +28,23 @@ class _RoutinePageState extends State<RoutinePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     theme ??= Provider.of<ThemeStore>(context);
   }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
 
+    var activiti = new RoutineModel();
+    final list = Provider.of<RoutineController>(context);
+    // list.add(model);
+    // list.add(model);
+    // print(list);
+    // list.cleanAll();
+    // print(list);
+    //expect(routine.list, model);
+
+    return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: theme.toggleTheme,
         child: theme.isDark

@@ -18,7 +18,7 @@ environment:
 
 dependencies:
   #pega path da aplicacao
-  path_provider: ^1.4.0
+  path_provider: ^1.6.8
   #banco de dados noSql
   hive: ^1.4.1+1
   #provider e shared para implementar dark/light theme
@@ -65,14 +65,14 @@ flutter:
   fonts:
     - family: Lato
       fonts:
-        - asset: fonts/Lato-Black.ttf
-        - asset: fonts/Lato-Bold.ttf
-        - asset: fonts/Lato-Regular.ttf
+        - asset: fonts/Lato/Lato-Black.ttf
+        - asset: fonts/Lato/Lato-Bold.ttf
+        - asset: fonts/Lato/Lato-Regular.ttf
     - family: OpenSans
       fonts:
-        - asset: fonts/OpenSans-Bold.ttf
-        - asset: fonts/OpenSans-SemiBold.ttf
-        - asset: fonts/OpenSans-Regular.ttf
+        - asset: fonts/OpenSans/OpenSans-Bold.ttf
+        - asset: fonts/OpenSans/OpenSans-SemiBold.ttf
+        - asset: fonts/OpenSans/OpenSans-Regular.ttf
           #weight: 700
 scripts:
   build: flutter pub run build_runner build
