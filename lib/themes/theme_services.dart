@@ -9,7 +9,7 @@ class ThemeService {
   IThemeRepository _themeRepository;
   
   ThemeData get lightTheme => ThemeData(
-
+        buttonColor: Colors.lightBlue,
         primarySwatch: Colors.lightBlue,
         accentColor: Color.fromARGB(255, 141, 169, 196),
         brightness: Brightness.light,
@@ -25,13 +25,16 @@ class ThemeService {
           bodyText2: TextStyle(fontFamily: "OpenSans"),
           //SUBTITLE(OpenSans)
           subtitle1: TextStyle(fontFamily: "OpenSans"),
+          //BUTTOM (Lato)
+          button: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w700, fontSize: 15),
           
         )
       );
 
   ThemeData get darkTheme => ThemeData(
+        buttonColor: Colors.white70,
         primarySwatch: Colors.lightBlue,
-        accentColor: Colors.lightBlueAccent,
+        accentColor: Color.fromARGB(255, 141, 169, 196),
         brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         
@@ -44,6 +47,8 @@ class ThemeService {
           bodyText2: TextStyle(fontFamily: "OpenSans"),
           //SUBTITLE(OpenSans)
           subtitle1: TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.w800),
+
+          button: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w700, fontSize: 15),
         )
       );
 

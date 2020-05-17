@@ -90,13 +90,17 @@ class _RoutinePageState extends State<RoutinePage> {
   Widget _buildTop()
   {
     return new Container(
-      alignment: Alignment.bottomLeft,
-      margin: EdgeInsets.only(top:15, left: 15),
+      alignment: Alignment.bottomRight,
+      margin: EdgeInsets.only(top:15, right: 20),
       child: RaisedButton(
+        padding: EdgeInsets.all(8),
         onPressed: (){},
         child: 
-          Text("New Activity")
-      , ) 
+          Row( mainAxisSize: MainAxisSize.min,
+            children:[
+            Icon(Icons.add),
+            Text("New Activity")
+      , ])) 
     );
   }
 }
