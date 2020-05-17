@@ -17,8 +17,15 @@ class ThemeService {
         visualDensity: VisualDensity.adaptivePlatformDensity,
 
         textTheme: TextTheme(
+          //HEADLINE(Lato)
+          headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
+          headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
+          //BODYTEXT(OpenSans)
           bodyText1: TextStyle(fontFamily: "OpenSans"),
-          headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 24)
+          bodyText2: TextStyle(fontFamily: "OpenSans"),
+          //SUBTITLE(OpenSans)
+          subtitle1: TextStyle(fontFamily: "OpenSans"),
+          
         )
       );
 
@@ -29,8 +36,14 @@ class ThemeService {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         
         textTheme: TextTheme(
+          //HEADLINE(Lato)
+          headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
+          headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+          //BODYTEXT(OpenSans)
           bodyText1: TextStyle(fontFamily: "OpenSans"),
-          headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 24)
+          bodyText2: TextStyle(fontFamily: "OpenSans"),
+          //SUBTITLE(OpenSans)
+          subtitle1: TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.w800),
         )
       );
 

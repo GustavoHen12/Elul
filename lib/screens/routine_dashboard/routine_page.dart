@@ -1,6 +1,7 @@
 import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/screens/routine_dashboard/routine_services.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
+import 'package:Elul/screens/widgets/routine/card.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,7 @@ class _RoutinePageState extends State<RoutinePage> {
 
     var activiti = new RoutineModel();
     final list = Provider.of<RoutineController>(context);
+
     // list.add(model);
     // list.add(model);
     // print(list);
@@ -57,6 +59,11 @@ class _RoutinePageState extends State<RoutinePage> {
           children: <Widget>[
             _buildTop(),
             _buildList(),
+            RoutineCard(
+              title: 'Universidade',
+              start: 12.00,
+              end: 15.55,
+              days: ["Sunday", "Monday", "Tuesday"]),
             //_buildGrid(),
           ],)
         )
