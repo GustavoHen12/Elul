@@ -20,11 +20,12 @@ class ThemeService {
           //HEADLINE(Lato)
           headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
           headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
+          headline5: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 20, color: Colors.blueAccent),
           //BODYTEXT(OpenSans)
           bodyText1: TextStyle(fontFamily: "OpenSans"),
           bodyText2: TextStyle(fontFamily: "OpenSans"),
           //SUBTITLE(OpenSans)
-          subtitle1: TextStyle(fontFamily: "OpenSans"),
+          subtitle1: TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.w800),
           //BUTTOM (Lato)
           button: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w700, fontSize: 15),
           
@@ -42,6 +43,7 @@ class ThemeService {
           //HEADLINE(Lato)
           headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
           headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+          headline5: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
           //BODYTEXT(OpenSans)
           bodyText1: TextStyle(fontFamily: "OpenSans"),
           bodyText2: TextStyle(fontFamily: "OpenSans"),
