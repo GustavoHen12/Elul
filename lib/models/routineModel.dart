@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 part 'routineModel.g.dart';
 
 class RoutineModel extends _RoutineModel with _$RoutineModel {
-  RoutineModel({int id, String title, List days, double startTime, double endTime})
+  RoutineModel({int id, String title, List days, TimeOfDay startTime, TimeOfDay endTime})
       : super(id: id, title: title, days: days, startTime: startTime, endTime: endTime);
 
   toJson() {
@@ -23,9 +24,9 @@ abstract class _RoutineModel with Store {
 
   @observable List days;
 
-  @observable double startTime;
+  @observable TimeOfDay startTime;
 
-  @observable double endTime;
+  @observable TimeOfDay endTime;
 
   _RoutineModel({this.id, this.title, this.days, this.startTime, this.endTime});
 }
