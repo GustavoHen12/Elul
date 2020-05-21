@@ -15,7 +15,6 @@ void main() {
 //      _RoutineModel({this.id, this.title, this.days, this.startTime, this.endTime});
     // test('adiciona', (){
     //   var model = new RoutineModel(
-    //     id: 12,
     //     title: 'teste',
     //     days: ['monday', 'thursday', 'sunday'],
     //     startTime: 12.00,

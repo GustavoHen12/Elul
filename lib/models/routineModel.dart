@@ -1,14 +1,21 @@
+import 'package:Elul/models/timeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-
 part 'routineModel.g.dart';
 
+
 class RoutineModel extends _RoutineModel with _$RoutineModel {
-  RoutineModel({int id, String title, List days, TimeOfDay startTime, TimeOfDay endTime})
+  RoutineModel({int id, String title, List days, Time startTime, Time endTime})
       : super(id: id, title: title, days: days, startTime: startTime, endTime: endTime);
 
   toJson() {
-    return {"id": id, "title": title, "days": days, "startTime": startTime, "endTime": endTime};
+    return {
+      "id": id, 
+      "title": title, 
+      "days": days,  
+      "startTime": {'hours': startTime.hour, 'minutes': startTime.minute }, 
+      "endTime": {'hours': endTime.hour, 'minutes': endTime.minute }
+    };
   }
 
   factory RoutineModel.fromJson(Map json) {
@@ -24,9 +31,9 @@ abstract class _RoutineModel with Store {
 
   @observable List days;
 
-  @observable TimeOfDay startTime;
+  @observable Time startTime;
 
-  @observable TimeOfDay endTime;
+  @observable Time endTime;
 
   _RoutineModel({this.id, this.title, this.days, this.startTime, this.endTime});
 }

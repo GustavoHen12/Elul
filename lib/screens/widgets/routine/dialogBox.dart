@@ -1,4 +1,5 @@
 import 'package:Elul/models/routineModel.dart';
+import 'package:Elul/models/timeModel.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,13 @@ class  _DialogBox extends StatefulWidget {
 
 class _DialogBoxState extends State<_DialogBox> {
   ThemeStore theme;
-  
+
+  String _title;
+  List _days;
+  Time _start = new Time();
+  Time _end = new Time();
+
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -34,7 +41,8 @@ class _DialogBoxState extends State<_DialogBox> {
   }
   
   final _textController = TextEditingController();
-  RoutineModel activiti;
+  RoutineModel activiti = new RoutineModel();
+  
   @override
   void initState() { 
     super.initState();
@@ -78,20 +86,23 @@ class _DialogBoxState extends State<_DialogBox> {
           maxLength: 20,
           style: theme.theme.textTheme.button,
           onChanged: (String value){
-            activiti.title = value;
+            _title = value;
           },
           )
         );
     }
 
     Widget _timeInput() {
-      TimeOfDay startTime = activiti.startTime ?? TimeOfDay.now();
-      TimeOfDay endTime = activiti.endTime ?? TimeOfDay.now();
+      _start.hour = _start.hour ?? TimeOfDay.now().hour;
+      _start.minute = _start.minute ?? TimeOfDay.now().minute;
+      _end.hour = _end.hour ?? TimeOfDay.now().hour;
+      _end.minute = _end.minute ?? TimeOfDay.now().minute;
+      // TimeOfDay endTime = activiti.endTime ?? TimeOfDay.now();
 
       // //formata
-      MaterialLocalizations localizations = MaterialLocalizations.of(context);
-      String formaStartTime = localizations.formatTimeOfDay(startTime, alwaysUse24HourFormat: false);
-      String formaendTime = localizations.formatTimeOfDay(endTime, alwaysUse24HourFormat: false);
+      // MaterialLocalizations localizations = MaterialLocalizations.of(context);
+      String formaStartTime = '${_start.hour}:${_start.minute}';
+      String formaendTime = '${_end.hour}:${_end.minute}';
       
       return Row(
         children: [
@@ -102,11 +113,12 @@ class _DialogBoxState extends State<_DialogBox> {
               onTap: ()async{
                 TimeOfDay newTime = await showTimePicker(
                   context: context,
-                  initialTime: activiti.startTime ?? TimeOfDay.now(),
+                  initialTime: TimeOfDay.now(),
                 );
                 if(newTime != null)
                   setState(() {
-                    activiti.startTime = newTime;
+                    _start.hour = newTime.hour;
+                    _start.minute = newTime.minute;
                   });
               }
             )),
@@ -121,7 +133,8 @@ class _DialogBoxState extends State<_DialogBox> {
                 );
                 if(newTime != null)
                   setState(() {
-                    activiti.endTime = newTime;
+                    activiti.endTime.hour = newTime.hour;
+                    activiti.endTime.minute = newTime.minute;
                   });
               },
             )),
@@ -129,7 +142,7 @@ class _DialogBoxState extends State<_DialogBox> {
     }
 
     Widget _daysInput() {
-      activiti.days ??= new List();
+      _days ??= new List();
       return Flexible(
         child: Container(
         child: Wrap(
@@ -145,13 +158,13 @@ class _DialogBoxState extends State<_DialogBox> {
           ]
             .map((day) => FilterChip(
               label: Text(day.substring(0, 3)),
-              selected: activiti.days.contains(day),
+              selected: _days.contains(day),
               onSelected: (bool selected) {
                 setState(() {
                   if(selected)
-                    activiti.days.add(day);
+                    _days.add(day);
                   else
-                    activiti.days.remove(day);
+                    _days.remove(day);
                 });
               }, 
               selectedColor: Theme.of(context).accentColor,
@@ -163,9 +176,10 @@ class _DialogBoxState extends State<_DialogBox> {
     }
 
     _save() async {
+      RoutineModel routine = RoutineModel(days: _days, title: _title, startTime: _start, endTime: _end);
       final list = Provider.of<RoutineController>(context, listen: false);
       if(widget.activiti == null)
-        await list.add(activiti);
+        await list.add(routine);
       else
         await list.update(activiti);
     }
@@ -173,6 +187,7 @@ class _DialogBoxState extends State<_DialogBox> {
     _back(){
       Navigator.pop(context);
     }
+    
     Widget _buttons(){
       return Container(
         margin: EdgeInsets.only(top: 25),
