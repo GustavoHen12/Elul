@@ -42,13 +42,13 @@ mixin _$RoutineModel on _RoutineModel, Store {
   final _$startTimeAtom = Atom(name: '_RoutineModel.startTime');
 
   @override
-  Time get startTime {
+  String get startTime {
     _$startTimeAtom.reportRead();
     return super.startTime;
   }
 
   @override
-  set startTime(Time value) {
+  set startTime(String value) {
     _$startTimeAtom.reportWrite(value, super.startTime, () {
       super.startTime = value;
     });
@@ -57,13 +57,13 @@ mixin _$RoutineModel on _RoutineModel, Store {
   final _$endTimeAtom = Atom(name: '_RoutineModel.endTime');
 
   @override
-  Time get endTime {
+  String get endTime {
     _$endTimeAtom.reportRead();
     return super.endTime;
   }
 
   @override
-  set endTime(Time value) {
+  set endTime(String value) {
     _$endTimeAtom.reportWrite(value, super.endTime, () {
       super.endTime = value;
     });

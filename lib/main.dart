@@ -16,8 +16,10 @@ void main() async {
   // final directory = await path_provider.getApplicationDocumentsDirectory();
   // print(directory.path);
   // Hive.init(directory.path);
-
+  TimeOfDay n = TimeOfDay.now();
+  print('$n');
   runApp(MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {

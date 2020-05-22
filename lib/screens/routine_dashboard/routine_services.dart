@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:Elul/models/timeModel.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:Elul/models/routineModel.dart';
 import 'package:flutter/material.dart';
@@ -17,20 +18,10 @@ class RoutineService extends Disposable {
 
   _initDB() async {
     final directory = await path_provider.getApplicationDocumentsDirectory();
-
-    var initialized = false;
-    Future _openBox() async {
-      if (!initialized) {
-        initialized = true;
-        Hive.init(directory.path);
-        Hive.registerAdapter(TimeAdapter());
-        //final box = await Hive.openBox("activities");
-      }
-
-      return await Hive.openBox('myBox');
-    }
+    Hive.init(directory.path);
+    //Hive.registerAdapter(TimeOfDayAdapter());
+    final box = await Hive.openBox("activities");
     
-    final box = await _openBox();
 
     if (!completer.isCompleted) completer.complete(box);
   }

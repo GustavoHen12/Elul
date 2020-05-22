@@ -17,12 +17,15 @@ environment:
   sdk: ">=2.5.2 <3.0.0"
 
 dependencies:
+  #json_serializable: ^3.3.0
+  #dart_json_mapper: ^1.5.10
   flutter_launcher_icons: "^0.7.0"
   #pega path da aplicacao
   path_provider: ^1.6.8
   #banco de dados noSql
   hive: ^1.4.1+1
-  hive_generator: ^0.7.0+2
+  hive_flutter: ^0.3.0+2
+  #hive_generator: ^0.7.0+2
   #provider e shared para implementar dark/light theme
   provider: ^4.0.5
   shared_preferences: ^0.5.6+3
@@ -48,8 +51,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-dependency_overrides:
-  dartx: ^0.3.0
+# dependency_overrides:
+#   dartx: ^0.3.0
 
 flutter_icons:
   ios: true

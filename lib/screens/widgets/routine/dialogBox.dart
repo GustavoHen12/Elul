@@ -1,5 +1,6 @@
 import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/models/timeModel.dart';
+import 'package:Elul/models/timeStr.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,11 @@ class _DialogBoxState extends State<_DialogBox> {
 
   String _title;
   List _days;
-  Time _start = new Time();
-  Time _end = new Time();
+  String _start;
+  String _end;
+
+  StartTime _nstart;
+  StartTime _nend;
 
 
   @override
@@ -93,16 +97,17 @@ class _DialogBoxState extends State<_DialogBox> {
     }
 
     Widget _timeInput() {
-      _start.hour = _start.hour ?? TimeOfDay.now().hour;
-      _start.minute = _start.minute ?? TimeOfDay.now().minute;
-      _end.hour = _end.hour ?? TimeOfDay.now().hour;
-      _end.minute = _end.minute ?? TimeOfDay.now().minute;
+      _start = _start ?? TimeOfDay.now().toString();
+      //_start.minute = _start.minute ?? TimeOfDay.now().minute;
+      _end = _end ?? TimeOfDay.now().hour.toString();
+      //_end.minute = _end.minute ?? TimeOfDay.now().minute;
       // TimeOfDay endTime = activiti.endTime ?? TimeOfDay.now();
 
       // //formata
       // MaterialLocalizations localizations = MaterialLocalizations.of(context);
-      String formaStartTime = '${_start.hour}:${_start.minute}';
-      String formaendTime = '${_end.hour}:${_end.minute}';
+//      print('${TimeOfDay.now().hour} : ${TimeOfDay.now().minute}, ');
+      String formaStartTime = '$_start';
+      String formaendTime = '$_end';
       
       return Row(
         children: [
@@ -117,8 +122,10 @@ class _DialogBoxState extends State<_DialogBox> {
                 );
                 if(newTime != null)
                   setState(() {
-                    _start.hour = newTime.hour;
-                    _start.minute = newTime.minute;
+                    //_start = newTime.toString();
+                    _start = newTime.toString();
+                    //_nstart = .setFromTime(newTime);
+                    print('$newTime, ${newTime.hour} : ${newTime.minute} , ${newTime.period}');
                   });
               }
             )),
@@ -129,12 +136,12 @@ class _DialogBoxState extends State<_DialogBox> {
               onTap: ()async {
                TimeOfDay newTime = await showTimePicker(
                   context: context,
-                  initialTime: activiti.endTime ?? TimeOfDay.now(),
+                  initialTime: TimeOfDay.now(),
                 );
                 if(newTime != null)
                   setState(() {
-                    activiti.endTime.hour = newTime.hour;
-                    activiti.endTime.minute = newTime.minute;
+                    _end = newTime.toString();
+                    //_nend.setFromTime(newTime);
                   });
               },
             )),

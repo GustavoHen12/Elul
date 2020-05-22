@@ -1,11 +1,13 @@
 import 'package:Elul/models/timeModel.dart';
-import 'package:flutter/material.dart';
+import 'package:Elul/models/timeStr.dart';
 import 'package:mobx/mobx.dart';
+import 'dart:convert';
+
 part 'routineModel.g.dart';
 
 
 class RoutineModel extends _RoutineModel with _$RoutineModel {
-  RoutineModel({int id, String title, List days, Time startTime, Time endTime})
+  RoutineModel({int id, String title, List days, String startTime, String endTime})
       : super(id: id, title: title, days: days, startTime: startTime, endTime: endTime);
 
   toJson() {
@@ -13,14 +15,18 @@ class RoutineModel extends _RoutineModel with _$RoutineModel {
       "id": id, 
       "title": title, 
       "days": days,  
-      "startTime": {'hours': startTime.hour, 'minutes': startTime.minute }, 
-      "endTime": {'hours': endTime.hour, 'minutes': endTime.minute }
-    };
+      "startTime": startTime, 
+      "endTime": endTime,
+    }; 
   }
 
-  factory RoutineModel.fromJson(Map json) {
+  factory RoutineModel.fromJson(Map<dynamic, dynamic> parsedJson) {
     return RoutineModel(
-        id: json['id'], title: json['title'], days: json['days'], startTime: json['startTime'], endTime: json['endTime'] );
+        id: parsedJson['id'], 
+        title: parsedJson['title'], 
+        days: parsedJson['days'], 
+        startTime: parsedJson['startTime'], 
+        endTime: parsedJson['endTime']);
   }
 }
 
@@ -31,9 +37,9 @@ abstract class _RoutineModel with Store {
 
   @observable List days;
 
-  @observable Time startTime;
+  @observable String startTime;
 
-  @observable Time endTime;
+  @observable String endTime;
 
   _RoutineModel({this.id, this.title, this.days, this.startTime, this.endTime});
 }
