@@ -5,8 +5,9 @@ seria salvando o horario como TimeOfDay, ou algum objeto que possua os atributos
 representar esse dado.  
   O primeiro que eu encontre, foi com relação à gerar um adaptador para o Hive, porque ele não reconhecia 
 o tipo do objeto que eu criei para representar o horário. Basicamente, o problema com o typeAdapter é que
-ele diz que o tipo já existe. Eu procurei soluções na internet, mas a única solução que eu encontrei foi
-essa: https://github.com/hivedb/hive/issues/85, mas nenhuma delas funcionou. 
+ele diz que o tipo já existe (HiveError (HiveError: There is already a TypeAdapter for typeId 12.)).
+Eu procurei soluções na internet, mas a única solução que eu encontrei foi essa: 
+https://github.com/hivedb/hive/issues/85, mas nenhuma delas funcionou. 
   Mas eu descobri depois que o tipo TypeAdapter para o TimeOfDay esta presente no package Hive_flutter. 
 Eu tentei implemetar com isso. Mas deu problema na serialização do objeto, mais especificamente para fazer 
 o map de Json para o Objeto. O problema que dava era que ele não conseguia converter de String para 
@@ -18,6 +19,7 @@ e o dart_json_mapper. Mas com o json_serializable, ele basicamente não "reconhe
 não conseguia montar. E com o dart_json_mapper, ele não fazia nada. O maior problema com esses dois,
 é que eles tem que trabalhar junto com o mobx, e isso não vai muito bem.
   Eu tentei algumas outras abordagens, mas sem muito exito. 
+Map<dynamic, dynamic>(volta do Hive) != Map<String, dynamic> 
   Eu creio, que a abordagem que é mais proxima de funcionar é essa ultima mesmo. É possivel ver 
 mais sobre ela aqui https://github.com/mobxjs/mobx.dart/issues/147, e também no tutoria do proprio Hive
 de uma Todo_list.
@@ -26,41 +28,17 @@ de uma Todo_list.
 // I/flutter ( 4911): TimeOfDay(15:29), 15 : 29 , DayPeriod.pm
 // I/flutter ( 4911): TimeOfDay(00:29), 0 : 29 , DayPeriod.am
 // I/flutter ( 4911): TimeOfDay(12:30), 12 : 30 , DayPeriod.pm
+
+import 'package:flutter/material.dart';
+
 class Time_Str
 {
-  int hour;
-  int minute;
-  String period;
-
-  Time_Str({this.hour, this.minute, this.period});
-
-  setFromTime(TimeOfDay time){
-    hour = time.hour;
-    minute = time.minute;
-    period = time.period.toString();
-  }
   
   toStr(TimeOfDay time){
-    return '${time.hour.toString()}:${time.minute.toString()} $period';
+    return '${time.hour.toString()}:${time.minute.toString()}';
   }
 
   toTime(String time){
     return;
-  }
-
-  toJson(){
-    return {
-      'hour': hour,
-      'minute': minute,
-      'period': period
-    };
-  }
-
-  factory Time_Str.fromJson(Map parsedJson) {
-    return Time_Str(
-        hour: int.parse(parsedJson['hour']), 
-        minute: int.parse(parsedJson['title']), 
-        period: parsedJson['days'], 
-    );
   }
 }

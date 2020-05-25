@@ -10,14 +10,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 
-class Routpage extends StatelessWidget {
-  //LocalStorageService service = new LocalStorageService();
-  @override
-  Widget build(BuildContext context) => Provider<RoutineController>(
-      create: (_) => RoutineController(),
-      child: RoutinePage() 
-    );
-}
+// class Routpage extends StatelessWidget {
+//   //LocalStorageService service = new LocalStorageService();
+//   @override
+//   Widget build(BuildContext context) => Provider<RoutineController>(
+//       create: (_) => RoutineController(),
+//       child: RoutinePage() 
+//     );
+// }
 
 
 class RoutinePage extends StatefulWidget {
@@ -26,8 +26,10 @@ class RoutinePage extends StatefulWidget {
   _RoutinePageState createState() => _RoutinePageState();
 }
 
+
 class _RoutinePageState extends State<RoutinePage> {
   ThemeStore theme;
+  final RoutineController activities =  RoutineController();
 
   @override
   void didChangeDependencies() {
@@ -38,9 +40,10 @@ class _RoutinePageState extends State<RoutinePage> {
 
   @override
   Widget build(BuildContext context) {
+    final activities = Provider.of<RoutineController>(context);
     SizeConfig().init(context);
-    var activiti = new RoutineModel();
-    final list = Provider.of<RoutineController>(context);
+    // var activiti = new RoutineModel();
+    
 
     // list.add(model);
     // list.add(model);
@@ -63,15 +66,16 @@ class _RoutinePageState extends State<RoutinePage> {
             : Icon(Icons.brightness_2),
       ),
 
-      body: new SafeArea(
+      body:Observer(
+        builder: (_)=>  new SafeArea(
         child: Column(
           children: <Widget>[
             _buildTop(),
-            Observer(builder: (_)=> Container(child: Text(list.toString()),)),
+            Container(child: Text(activities.itemsTotal.toString()),),
             _buildList(),
           ],)
         )
-    );
+    ));
   }
 
   List _days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -102,7 +106,7 @@ class _RoutinePageState extends State<RoutinePage> {
       barrierDismissible: false,
       context: context,
       builder: (_) {
-        return new DialogBox(model);  
+        return new DialogBox(activiti: model);  
       }
     );
   }
