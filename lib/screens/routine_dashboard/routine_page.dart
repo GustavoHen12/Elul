@@ -1,5 +1,4 @@
 import 'package:Elul/models/routineModel.dart';
-import 'package:Elul/screens/routine_dashboard/routine_services.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/screens/widgets/routine/card.dart';
 import 'package:Elul/screens/widgets/routine/dialogBox.dart';
@@ -44,61 +43,40 @@ class _RoutinePageState extends State<RoutinePage> {
     SizeConfig().init(context);
 
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: theme.toggleTheme,
+      //   child: theme.isDark
+      //       ? Icon(Icons.brightness_high)
+      //       : Icon(Icons.brightness_2),
+      // ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 30,), 
+          onPressed:theme.toggleTheme, 
+          //(){Navigator.pop();}
+          ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 10,
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: theme.toggleTheme,
-        child: theme.isDark
-            ? Icon(Icons.brightness_high)
-            : Icon(Icons.brightness_2),
+        onPressed: (){
+          dialogBox();
+        },
+        child: Icon(Icons.add, size: 35,),
       ),
 
-      body: Observer(
-        builder: (_)=>  new SafeArea(
+      body: 
+        // Observer(
+        // builder: (_)=>  
+        new SafeArea(
         child: Column(
           children: <Widget>[
-            _buildTop(),
-            Container(child: Text(activities.itemsTotal.toString()),),
+            //_buildTop(),
+            //Container(child: Text(activities.itemsTotal.toString()),),
             ActivitiList(),
           ],)
         )
-    ));
-  }
-
-  List _days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-  Widget _buildList()
-  {
-    final activities = Provider.of<RoutineController>(context);
-    return Expanded(
-      child: ListView.builder(
-        itemCount: _days.length,
-        itemBuilder: (context, index){
-            List list = new List(); 
-            //activities.list.where((item) => item.days.contains(_days[index]));
-            activities.list.forEach((element) {
-              if(element.days.contains(_days[index]))
-                list.add(RoutineCard(activiti: element));
-            });
-
-            return  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [ 
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20), 
-                  child: Text(_days[index], style: theme.theme.textTheme.headline3,)
-                ),
-                SizedBox(
-                height: (list.length * 120.0),
-                child:
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: list.length,
-                  itemBuilder: (context, index){
-                    return list[index];
-                  }))
-            ]);
-          }
-        )
-      );
+    );
   }
 
   dialogBox ([RoutineModel model])

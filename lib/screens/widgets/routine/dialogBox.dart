@@ -5,7 +5,6 @@ import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Elul/screens/widgets/sizeConfig.dart';
-import 'dart:convert';
 
 class  DialogBox extends StatefulWidget {
   
@@ -130,6 +129,12 @@ class _DialogBoxState extends State<DialogBox> {
               TimeOfDay newTime = await showTimePicker(
                 context: context,
                 initialTime: TimeOfDay.now(),
+                builder: (BuildContext context, Widget child) {
+                  return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                    child: child,
+                  );
+                }
               );
               if(newTime != null)
                 setState(() {
