@@ -1,14 +1,16 @@
+import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RoutineCard extends StatefulWidget
 {
-  final String title;
-  final TimeOfDay start;
-  final TimeOfDay end;
-  final days;
-  RoutineCard({this.title, this.start, this.end, this.days});
+  // final String title;
+  // final TimeOfDay start;
+  // final TimeOfDay end;
+  // final days;
+  RoutineModel activiti;
+  RoutineCard({this.activiti});
 
   @override
   _RoutineCardState createState() => _RoutineCardState();
@@ -37,9 +39,9 @@ class _RoutineCardState extends State<RoutineCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              _title(widget.title),
-              _time(widget.start, widget.end),
-              _days(widget.days),
+              _title(widget.activiti.title),
+              _time(widget.activiti.startTime, widget.activiti.endTime),
+              _days(widget.activiti.days),
             ],),
         )
       ) 
@@ -53,20 +55,21 @@ class _RoutineCardState extends State<RoutineCard> {
     );
   }
 
-  Widget _time(TimeOfDay start, TimeOfDay end)
+  Widget _time(String start, String end)
   {
     // var minutes = (start - start.truncate())*100;
     // var minutesEnd = (end - end.truncate())*100;
     // String date = start.toInt().toString()+':'+ minutes.toInt().toString() + 'h' +
     //               ' - '
     //               + end.toInt().toString()+':'+ minutesEnd.toInt().toString() + 'h';
-    MaterialLocalizations localizations = MaterialLocalizations.of(context);
-    String startTime = localizations.formatTimeOfDay(start, alwaysUse24HourFormat: false);
-    String endTime = localizations.formatTimeOfDay(end, alwaysUse24HourFormat: false);
+
+    // MaterialLocalizations localizations = MaterialLocalizations.of(context);
+    // String startTime = localizations.formatTimeOfDay(start, alwaysUse24HourFormat: false);
+    // String endTime = localizations.formatTimeOfDay(end, alwaysUse24HourFormat: false);
       
     return Container( 
       margin: EdgeInsets.only(top: 5, bottom: 2),
-      child: Text('$startTime - $endTime', style: mainTheme.theme.textTheme.bodyText2),
+      child: Text('$start - $end', style: mainTheme.theme.textTheme.bodyText2),
     );
   }
 

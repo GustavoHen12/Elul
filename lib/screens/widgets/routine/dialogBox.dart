@@ -21,11 +21,13 @@ class  DialogBox extends StatefulWidget {
 class _DialogBoxState extends State<DialogBox> {
   ThemeStore theme;
 
+  //dados que serao atualizados 
   String _title;
   List _days;
   String _start;
   String _end;
 
+  //converte de TimeOf Day para String e vice versa
   Time_Str timeConverter = new Time_Str();
 
   @override
@@ -33,13 +35,16 @@ class _DialogBoxState extends State<DialogBox> {
     super.didChangeDependencies();
     theme ??= Provider.of<ThemeStore>(context);
   }
-  
+  //para o text field de titulo
   final _textController = TextEditingController();
+
   RoutineModel activiti = new RoutineModel();
   
   @override
   void initState() { 
     super.initState();
+    //se não for passado um RoutineModel existente
+    //ou seja, se é um novo ou um ja existente
     activiti = widget.activiti ?? RoutineModel();
     _textController.text = activiti.title;  
   }
