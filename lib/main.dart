@@ -10,17 +10,11 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 //initializeDateFormatting('pt_BR', null);
-void main() async { 
-  print('object');
+void main() async {
   //TestWidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
-  // final directory = await path_provider.getApplicationDocumentsDirectory();
-  // print(directory.path);
-  // Hive.init(directory.path);
-  TimeOfDay n = TimeOfDay.now();
-  print('$n');
+
   runApp(MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {

@@ -34,12 +34,6 @@ class _RoutinePageState extends State<RoutinePage> {
     SizeConfig().init(context);
 
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: theme.toggleTheme,
-      //   child: theme.isDark
-      //       ? Icon(Icons.brightness_high)
-      //       : Icon(Icons.brightness_2),
-      // ),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 30,), 
@@ -103,8 +97,6 @@ class _RoutinePageState extends State<RoutinePage> {
 
 
 class ActivitiList extends StatefulWidget {
-  ActivitiList({Key key}) : super(key: key);
-
   @override
   _ActivitiListState createState() => _ActivitiListState();
 }
@@ -125,40 +117,98 @@ class _ActivitiListState extends State<ActivitiList> {
   @override
   Widget build(BuildContext context) {
     final activities = Provider.of<RoutineController>(context);
-    return Observer(
-      builder: (_) => Expanded(
-      child: ListView.builder(
+    return Expanded(
+      child: 
+      Observer(
+      builder: (_) => 
+      ListView.builder(
         itemCount: _days.length,
         itemBuilder: (context, index){
-            List list = new List(); 
-            List listData = new List();
-            //activities.list.where((item) => item.days.contains(_days[index]));
-            activities.list.forEach((element) {
-              if(element.days.contains(_days[index]))
-              {
-                list.add(RoutineCard(activiti: element));
-                listData.add(element);
-              }
-            });
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [ 
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20), 
-                  child: Text(_days[index], style: theme.theme.textTheme.headline3,)
-                ),
-                SizedBox(
-                height: (list.length * 120.0),
-                child:
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: list.length,
-                  itemBuilder: (context, index){
-                    return list[index];
-                  }))
-            ]);
+            return BuildDay(day: _days[index], activities: activities.list);
+            // List list = new List(); 
+            // List listData = new List();
+            // activities.list.forEach((element) {
+            //   if(element.days.contains(_days[index]))
+            //   {
+            //     list.add(RoutineCard(activiti: element));
+            //     listData.add(element);
+            //   }
+            // });
+            // return Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [ 
+            //     Container(
+            //       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20), 
+            //       child: Text(_days[index], style: theme.theme.textTheme.headline3,)
+            //     ),
+            //     SizedBox(
+            //     height: (list.length * 120.0),
+            //     child:
+            //     ListView.builder(
+            //       physics: NeverScrollableScrollPhysics(),
+            //       itemCount: list.length,
+            //       itemBuilder: (context, index){
+            //         return list[index];
+            //       }))
+            // ]);
             }
         )
       ));
+  }
+}
+
+class BuildDay extends StatefulWidget {
+  final String day;
+  final List activities;
+  BuildDay({@required this.day, @required this.activities});
+
+  @override
+  _BuildDayState createState() => _BuildDayState();
+}
+
+class _BuildDayState extends State<BuildDay> {
+  ThemeStore theme;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    theme ??= Provider.of<ThemeStore>(context);
+  }
+  _getSizeH()
+  {
+    int quant = 0;
+    widget.activities.forEach((element) {
+      if(element.days.contains(widget.day))
+        quant++;
+    });
+    return quant * 120.0;
+  }
+  @override
+  Widget build(BuildContext context) { 
+    //final activities = Provider.of<RoutineController>(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [ 
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20), 
+          child: Text(widget.day, style: theme.theme.textTheme.headline3,)
+        ),
+        Observer(builder: (_)=>
+        SizedBox(
+        height: _getSizeH(),
+        child: 
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: widget.activities.length,
+          itemBuilder: (context, index){
+              if(widget.activities[index].days.contains(widget.day))
+                  return RoutineCard(activiti: widget.activities[index]);
+              else 
+                  return Container();
+              // return widget.activities[index].days.contains(widget.day) ?
+              //            Text(widget.activities[index].toString())
+              //           :null;
+          })),)
+    ]);
   }
 }

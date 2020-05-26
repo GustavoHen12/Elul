@@ -31,8 +31,8 @@ class _RoutineCardState extends State<RoutineCard> {
   @override
   Widget build(BuildContext context) {
   final activities = Provider.of<RoutineController>(context, listen: false);
-
-    return GestureDetector(
+  
+  return GestureDetector(
     onTap: (){
       showDialog(
         barrierDismissible: false,
@@ -55,8 +55,6 @@ class _RoutineCardState extends State<RoutineCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Observer(
-                builder: (_)=>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,7 +62,7 @@ class _RoutineCardState extends State<RoutineCard> {
                     _title(widget.activiti.title),
                     _time(widget.activiti.startTime, widget.activiti.endTime),
                     _days(widget.activiti.days),
-                  ],)),
+                  ],),
                 Container(child: 
                   IconButton(icon: Icon(Icons.delete_outline), onPressed: ()async{
                     await activities.remove(widget.activiti.id);
