@@ -1,6 +1,9 @@
 import 'package:Elul/models/routineModel.dart';
+import 'package:Elul/screens/routine_dashboard/routine_store.dart';
+import 'package:Elul/screens/widgets/routine/dialogBox.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class RoutineCard extends StatefulWidget
@@ -27,24 +30,50 @@ class _RoutineCardState extends State<RoutineCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      borderOnForeground: false,
-      elevation: 4,
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: SizedBox(
-        width: double.infinity,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              _title(widget.activiti.title),
-              _time(widget.activiti.startTime, widget.activiti.endTime),
-              _days(widget.activiti.days),
-            ],),
-        )
-      ) 
+  final activities = Provider.of<RoutineController>(context, listen: false);
+
+    return GestureDetector(
+    onTap: (){
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return new DialogBox(activiti: widget.activiti);  
+        }
+      );
+    },
+    child:
+      Card(
+        borderOnForeground: false,
+        elevation: 4,
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: SizedBox(
+          width: double.infinity,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Observer(
+                builder: (_)=>
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _title(widget.activiti.title),
+                    _time(widget.activiti.startTime, widget.activiti.endTime),
+                    _days(widget.activiti.days),
+                  ],)),
+                Container(child: 
+                  IconButton(icon: Icon(Icons.delete_outline), onPressed: ()async{
+                    await activities.remove(widget.activiti.id);
+                  }),
+                ),
+              ])
+          )
+        ) 
+      )
     );
   }
 
@@ -57,12 +86,6 @@ class _RoutineCardState extends State<RoutineCard> {
 
   Widget _time(String start, String end)
   {
-    // var minutes = (start - start.truncate())*100;
-    // var minutesEnd = (end - end.truncate())*100;
-    // String date = start.toInt().toString()+':'+ minutes.toInt().toString() + 'h' +
-    //               ' - '
-    //               + end.toInt().toString()+':'+ minutesEnd.toInt().toString() + 'h';
-
     // MaterialLocalizations localizations = MaterialLocalizations.of(context);
     // String startTime = localizations.formatTimeOfDay(start, alwaysUse24HourFormat: false);
     // String endTime = localizations.formatTimeOfDay(end, alwaysUse24HourFormat: false);

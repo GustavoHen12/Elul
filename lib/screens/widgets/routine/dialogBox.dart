@@ -45,7 +45,14 @@ class _DialogBoxState extends State<DialogBox> {
     //se não for passado um RoutineModel existente
     //ou seja, se é um novo ou um ja existente
     activiti = widget.activiti ?? RoutineModel();
-    _textController.text = activiti.title;  
+    _textController.text = activiti.title;
+    if(widget.activiti != null)
+    {
+      _title = widget.activiti.title;
+      _days = widget.activiti.days;
+      _start = widget.activiti.startTime;
+      _end = widget.activiti.endTime;
+    } 
   }
   
   
@@ -183,9 +190,17 @@ class _DialogBoxState extends State<DialogBox> {
     RoutineModel routine = RoutineModel(days: _days, title: _title, startTime: _start, endTime: _end);
     final list = Provider.of<RoutineController>(context, listen: false);
     if(widget.activiti == null)
+    {
       await list.add(routine);
+    }
     else
+    {
+      widget.activiti.days = _days; 
+      widget.activiti.title = _title; 
+      widget.activiti.startTime = _start; 
+      widget.activiti.endTime = _end;
       await list.update(activiti);
+    }
   }
 
   _back(){

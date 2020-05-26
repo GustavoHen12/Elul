@@ -9,15 +9,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 
-// class Routpage extends StatelessWidget {
-//   //LocalStorageService service = new LocalStorageService();
-//   @override
-//   Widget build(BuildContext context) => Provider<RoutineController>(
-//       create: (_) => RoutineController(),
-//       child: RoutinePage() 
-//     );
-// }
-
 
 class RoutinePage extends StatefulWidget {
   
@@ -66,17 +57,17 @@ class _RoutinePageState extends State<RoutinePage> {
       ),
 
       body: 
-        // Observer(
-        // builder: (_)=>  
+        //Observer(
+        //builder: (_)=>  
         new SafeArea(
         child: Column(
           children: <Widget>[
             //_buildTop(),
-            //Container(child: Text(activities.itemsTotal.toString()),),
+          //  Container(child: Text(activities.itemsTotal.toString()),),
             ActivitiList(),
           ],)
-        )
-    );
+      //  )
+    ));
   }
 
   dialogBox ([RoutineModel model])
@@ -128,23 +119,28 @@ class _ActivitiListState extends State<ActivitiList> {
     super.didChangeDependencies();
     theme ??= Provider.of<ThemeStore>(context);
   }
+
   List _days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   
   @override
   Widget build(BuildContext context) {
     final activities = Provider.of<RoutineController>(context);
-    return Expanded(
+    return Observer(
+      builder: (_) => Expanded(
       child: ListView.builder(
         itemCount: _days.length,
         itemBuilder: (context, index){
             List list = new List(); 
+            List listData = new List();
             //activities.list.where((item) => item.days.contains(_days[index]));
             activities.list.forEach((element) {
               if(element.days.contains(_days[index]))
+              {
                 list.add(RoutineCard(activiti: element));
+                listData.add(element);
+              }
             });
-            return Observer(
-              builder: (_) => Column(
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [ 
                 Container(
@@ -160,9 +156,9 @@ class _ActivitiListState extends State<ActivitiList> {
                   itemBuilder: (context, index){
                     return list[index];
                   }))
-            ]));
+            ]);
             }
         )
-      );
+      ));
   }
 }
