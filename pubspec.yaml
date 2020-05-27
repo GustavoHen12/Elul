@@ -89,6 +89,9 @@ flutter:
         - asset: fonts/OpenSans/OpenSans-SemiBold.ttf
         - asset: fonts/OpenSans/OpenSans-Regular.ttf
           #weight: 700
+    - family:  ElulIcons
+      fonts:
+       - asset: fonts/Icons/ElulIcons.ttf
 scripts:
   build: flutter pub run build_runner build
   clean: flutter pub run build_runner clean
