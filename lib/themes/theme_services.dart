@@ -17,6 +17,7 @@ class ThemeService {
 
         textTheme: TextTheme(
           //HEADLINE(Lato)
+          headline2: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w900, fontSize: 34, color: Color.fromARGB(255, 11, 37, 69)),              
           headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
           headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
           headline5: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 20, color: Colors.blueAccent),

@@ -37,8 +37,7 @@ class _RoutinePageState extends State<RoutinePage> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 30,), 
-          onPressed:theme.toggleTheme, 
-          //(){Navigator.pop();}
+          onPressed:(){Navigator.pop(context);},
           ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 10,
