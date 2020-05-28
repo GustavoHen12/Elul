@@ -1,4 +1,5 @@
 import 'package:Elul/screens/home/home_page.dart';
+import 'package:Elul/screens/home/home_store.dart';
 import 'package:Elul/screens/routine_dashboard/routine_page.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/themes/theme_repository.dart';
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
                 ThemeStore(ThemeService(ThemeRepository()))..getTheme()),
         Provider<RoutineController>(
            create: (_) => RoutineController()),
+        Provider<HomeController>(
+           create: (_) => HomeController())
       ],
       child: Consumer<ThemeStore>(
         builder: (_, ThemeStore value, __) => Observer(
