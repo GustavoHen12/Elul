@@ -1,3 +1,4 @@
+import 'package:Elul/icons/elul_icons_icons.dart';
 import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/screens/widgets/routine/card.dart';
@@ -34,10 +35,10 @@ class _RoutinePageState extends State<RoutinePage> {
     SizeConfig().init(context);
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 238, 244, 237),
+      backgroundColor: theme.theme.backgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 30,), 
+          icon: Icon(ElulIcons.backarrow_icon, size: 22,), 
           onPressed:(){Navigator.pop(context);},
           ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -47,7 +48,7 @@ class _RoutinePageState extends State<RoutinePage> {
         onPressed: (){
           dialogBox();
         },
-        child: Icon(Icons.add, size: 35,),
+        child: Icon(ElulIcons.add_icon, size: 25, color: theme.theme.iconTheme.color),
       ),
 
       body: 

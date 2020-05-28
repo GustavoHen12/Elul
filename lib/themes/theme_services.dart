@@ -9,7 +9,9 @@ class ThemeService {
   
   ThemeData get lightTheme => ThemeData(
         buttonColor: Colors.lightBlue,
+        iconTheme: IconThemeData(color: Colors.white),
         primarySwatch: Colors.lightBlue,
+        backgroundColor: Color.fromARGB(255, 238, 244, 237),
         accentColor: Color.fromARGB(255, 141, 169, 196),
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
@@ -22,8 +24,8 @@ class ThemeService {
           headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
           headline5: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 20, color: Colors.blueAccent),
           //BODYTEXT(OpenSans)
-          bodyText1: TextStyle(fontFamily: "OpenSans"),
-          bodyText2: TextStyle(fontFamily: "OpenSans"),
+          bodyText1: TextStyle(fontFamily: "OpenSans", fontSize: 12),
+          bodyText2: TextStyle(fontFamily: "OpenSans", fontSize: 11),
           //SUBTITLE(OpenSans)
           subtitle1: TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.w800),
           //BUTTOM (Lato)
@@ -34,13 +36,17 @@ class ThemeService {
 
   ThemeData get darkTheme => ThemeData(
         buttonColor: Colors.white70,
+        iconTheme: IconThemeData(color: Colors.grey[200]),
+        backgroundColor: Colors.grey[850],
         primarySwatch: Colors.lightBlue,
         accentColor: Color.fromARGB(255, 141, 169, 196),
+        cardTheme: CardTheme(color: Colors.grey[700]),
         brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         
         textTheme: TextTheme(
           //HEADLINE(Lato)
+          headline2: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w900, fontSize: 34, color: Colors.white60),
           headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
           headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
           headline5: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),

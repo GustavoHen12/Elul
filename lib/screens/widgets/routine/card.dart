@@ -90,7 +90,7 @@ class _RoutineCardState extends State<RoutineCard> {
       
     return Container( 
       margin: EdgeInsets.only(top: 5, bottom: 2),
-      child: Text('$start - $end', style: mainTheme.theme.textTheme.bodyText2),
+      child: Text('$start - $end', style: mainTheme.theme.textTheme.bodyText1),
     );
   }
 
@@ -104,7 +104,7 @@ class _RoutineCardState extends State<RoutineCard> {
 
     return Container(
  //     margin: EdgeInsets.only(left: 10),
-      child: Text(dayslist.substring(2, dayslist.length), style: mainTheme.theme.textTheme.bodyText2),
+      child: Text(dayslist.substring(2, dayslist.length), style: mainTheme.theme.textTheme.bodyText1),
     );
   }
 }
