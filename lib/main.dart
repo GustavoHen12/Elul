@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         Provider<RoutineController>(
            create: (_) => RoutineController()),
         Provider<HomeController>(
-           create: (_) => HomeController())
+            create: (_) => HomeController())
       ],
       child: Consumer<ThemeStore>(
         builder: (_, ThemeStore value, __) => Observer(

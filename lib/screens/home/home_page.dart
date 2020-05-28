@@ -1,6 +1,8 @@
 import 'package:Elul/icons/elul_icons_icons.dart';
 import 'package:Elul/screens/routine_dashboard/routine_page.dart';
+import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/themes/theme_store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 238, 244, 237),
       body: new SafeArea(
@@ -35,15 +38,7 @@ class _HomePageState extends State<HomePage> {
                 pinned: true,
                 snap: false,
                 leading: IconButton(icon: Icon(Icons.more_vert), onPressed: (){}),
-                actions: <Widget>[Container(margin:EdgeInsets.only(right: 10), child:
-                          IconButton(icon: Icon(ElulIcons.routine_icon, 
-                                                  color: theme.theme.accentColor,
-                                                  size: 22,), 
-                                            onPressed: (){
-                                              Navigator.push(context, 
-                                                            MaterialPageRoute(builder: (context) => RoutinePage())
-                                              );
-                                            }))],
+                actions: <Widget>[_buildRoutinBottom()],
                 title: _buildDay(),
                 titleSpacing: 20,
                 backgroundColor: Color.fromARGB(255, 238, 244, 237),
@@ -59,56 +54,9 @@ class _HomePageState extends State<HomePage> {
               SliverFixedExtentList(
                 itemExtent: 100,
                 delegate:SliverChildListDelegate([ 
-                      Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                      Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                      Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                      Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                      Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                                            Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                      Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                      Container(
-                        height: 200.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Text('Elemento'),
-                      ),
-                      
-                      ])
+                  BuildTodos(day: "Thursday"), 
+                  //Container(child: Text("nada"),),                 
+                ])
               )
                
             ],
@@ -131,7 +79,9 @@ class _HomePageState extends State<HomePage> {
   {
     String _day = 'Today';
     
-    return new Expanded(
+    return new SizedBox(
+      height: double.infinity,
+      width: double.infinity,
       child:Container(
       alignment: Alignment.bottomCenter,
       padding: EdgeInsets.only(bottom: 10),
@@ -140,8 +90,67 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 
-  // Widget _buildGrid()
-  // {
-  //   return Container(child: Text('test'),);
+  Widget _buildRoutinBottom()
+  {
+    return Container(
+      margin:EdgeInsets.only(right: 10), 
+      child:
+        IconButton(
+          icon: Icon(
+            ElulIcons.routine_icon, 
+            color: theme.theme.accentColor,
+            size: 22,), 
+          onPressed: (){
+            Navigator.push(context, 
+                          MaterialPageRoute(builder: (context) => RoutinePage())
+            );
+          }
+        )
+      );
+  }
+}
+
+class BuildTodos extends StatefulWidget {
+  final String day;
+  BuildTodos({@required this.day});
+
+  @override
+  _BuildTodos createState() => _BuildTodos();
+}
+
+class _BuildTodos extends State<BuildTodos> {
+  ThemeStore theme;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    theme ??= Provider.of<ThemeStore>(context);
+  }
+
+  @override
+  Widget build(BuildContext context) { 
+    final activities = Provider.of<RoutineController>(context);
+    _getListOfActivities(activities.list);
+    return Container(child: Text("nada"),);
+  }
+
+  // @override
+  // void initState() { 
+  //   super.initState();
+    
   // }
+
+  List _getListOfActivities(List lista)
+  {
+    List list = new List.from(lista);
+    List listOfDay =  new List();
+    print('# ${list.length}');
+    list.forEach((element) {
+        if(element.days.contains(widget.day))
+          listOfDay.add(element);
+     });
+    listOfDay.sort((a, b) => int.parse(a.startTime.substring(0, 2)).compareTo(int.parse(b.startTime.substring(0, 2))));
+    print('> -----${listOfDay}');
+    return listOfDay;
+  }
 }

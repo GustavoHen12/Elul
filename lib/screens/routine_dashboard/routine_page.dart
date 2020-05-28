@@ -34,6 +34,7 @@ class _RoutinePageState extends State<RoutinePage> {
     SizeConfig().init(context);
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 238, 244, 237),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 30,), 
@@ -118,40 +119,14 @@ class _ActivitiListState extends State<ActivitiList> {
     final activities = Provider.of<RoutineController>(context);
     return Expanded(
       child: 
-      Observer(
-      builder: (_) => 
+      // Observer(
+      // builder: (_) => 
       ListView.builder(
         itemCount: _days.length,
         itemBuilder: (context, index){
             return BuildDay(day: _days[index], activities: activities.list);
-            // List list = new List(); 
-            // List listData = new List();
-            // activities.list.forEach((element) {
-            //   if(element.days.contains(_days[index]))
-            //   {
-            //     list.add(RoutineCard(activiti: element));
-            //     listData.add(element);
-            //   }
-            // });
-            // return Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [ 
-            //     Container(
-            //       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20), 
-            //       child: Text(_days[index], style: theme.theme.textTheme.headline3,)
-            //     ),
-            //     SizedBox(
-            //     height: (list.length * 120.0),
-            //     child:
-            //     ListView.builder(
-            //       physics: NeverScrollableScrollPhysics(),
-            //       itemCount: list.length,
-            //       itemBuilder: (context, index){
-            //         return list[index];
-            //       }))
-            // ]);
             }
-        )
+        //)
       ));
   }
 }
@@ -204,9 +179,6 @@ class _BuildDayState extends State<BuildDay> {
                   return RoutineCard(activiti: widget.activities[index]);
               else 
                   return Container();
-              // return widget.activities[index].days.contains(widget.day) ?
-              //            Text(widget.activities[index].toString())
-              //           :null;
           })),)
     ]);
   }
