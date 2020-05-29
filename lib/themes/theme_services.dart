@@ -8,10 +8,11 @@ class ThemeService {
   IThemeRepository _themeRepository;
   
   ThemeData get lightTheme => ThemeData(
-        buttonColor: Colors.lightBlue,
+        buttonColor: Color.fromARGB(255,14,135,181),
         iconTheme: IconThemeData(color: Colors.white),
         primarySwatch: Colors.lightBlue,
-        backgroundColor: Color.fromARGB(255, 238, 244, 237),
+        backgroundColor: Colors.white,
+        //cardTheme: CardTheme(color: Color.fromARGB(255,238,244,237)),
         accentColor: Color.fromARGB(255, 141, 169, 196),
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
@@ -23,6 +24,7 @@ class ThemeService {
           headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
           headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
           headline5: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 20, color: Colors.blueAccent),
+          headline6: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w600, fontSize: 18),
           //BODYTEXT(OpenSans)
           bodyText1: TextStyle(fontFamily: "OpenSans", fontSize: 12),
           bodyText2: TextStyle(fontFamily: "OpenSans", fontSize: 11),
@@ -30,6 +32,7 @@ class ThemeService {
           subtitle1: TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.w800),
           //BUTTOM (Lato)
           button: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w700, fontSize: 15),
+          //caption: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w700, fontSize: 18),
           
         )
       );
@@ -50,6 +53,7 @@ class ThemeService {
           headline3: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 25),
           headline4: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
           headline5: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+          headline6: TextStyle(fontFamily: "Lato", fontWeight: FontWeight.w600, fontSize: 18),
           //BODYTEXT(OpenSans)
           bodyText1: TextStyle(fontFamily: "OpenSans"),
           bodyText2: TextStyle(fontFamily: "OpenSans"),
