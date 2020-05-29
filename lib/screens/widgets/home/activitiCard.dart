@@ -1,7 +1,11 @@
 import 'package:Elul/models/routineModel.dart';
+import 'package:Elul/models/todoModel.dart';
+import 'package:Elul/screens/home/home_store.dart';
+import 'package:Elul/screens/widgets/home/todoBox.dart';
 import 'package:Elul/screens/widgets/sizeConfig.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class ActivitiCard extends StatefulWidget {
@@ -33,28 +37,48 @@ class _ActivitiCardState extends State<ActivitiCard> {
     return size;
   }
 
+  dialogBox ({@required String activiti, TodoModel todo, @required String day})
+  {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return new TodoBox(activiti: activiti, todo: todo, day: day);  
+      }
+    );
+  }
   @override
   Widget build(BuildContext context) {
+    final taskList = Provider.of<HomeController>(context);
     SizeConfig().init(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
-      child:
-        Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        borderOnForeground: false,
-        elevation: 4,
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: SizedBox(
-          height: _getHeight(),
-          width: double.infinity,
-          child: Column(
-            children: <Widget>[
-              _getHeader(widget.activiti.title,
-                          widget.activiti.startTime,
-                          widget.activiti.endTime),
-              //_buildTodoView()
-            ]
-          ),
+      child: 
+      GestureDetector(
+        onTap: (){
+          dialogBox(activiti: widget.activiti.title, day: '29/12/2020');
+        },
+        child:
+          Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          borderOnForeground: false,
+          elevation: 4,
+          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: SizedBox(
+            height: _getHeight(),
+            width: double.infinity,
+            child: Column(
+              children: <Widget>[
+                _getHeader(widget.activiti.title,
+                            widget.activiti.startTime,
+                            widget.activiti.endTime),
+                Observer(builder: (_)=>
+                  Center(child: Text(taskList.list.toString()),)
+                )
+                //_buildTodoView()
+              ]
+            ),
+          )
         )
       )
     );

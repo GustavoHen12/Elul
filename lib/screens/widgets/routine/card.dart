@@ -3,7 +3,6 @@ import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/screens/widgets/routine/dialogBox.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class RoutineCard extends StatefulWidget
@@ -64,9 +63,12 @@ class _RoutineCardState extends State<RoutineCard> {
                     _days(widget.activiti.days),
                   ],),
                 Container(child: 
-                  IconButton(icon: Icon(Icons.delete_outline), onPressed: ()async{
-                    await activities.remove(widget.activiti.id);
-                  }),
+                  IconButton(icon: Icon(Icons.delete_outline, 
+                                        color: mainTheme.isDark ? Colors.white54 : Colors.grey[400],), 
+                                        onPressed: ()async{
+                                                      await activities.remove(widget.activiti.id);
+                                                      }
+                  ),
                 ),
               ])
           )

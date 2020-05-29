@@ -3,7 +3,6 @@ import 'package:Elul/screens/routine_dashboard/routine_page.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/screens/widgets/home/activitiCard.dart';
 import 'package:Elul/themes/theme_store.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -146,7 +145,7 @@ class _HomePageState extends State<HomePage> {
         IconButton(
           icon: Icon(
             ElulIcons.routine_icon, 
-            color: theme.theme.accentColor,
+            color: theme.theme.buttonColor,
             size: 22,), 
           onPressed: (){
             Navigator.push(context, 
