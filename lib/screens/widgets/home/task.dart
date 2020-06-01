@@ -7,7 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
-
+/**
+ * Fazer:
+ * 1) Update, onLongPress
+ * 2) Remove Mode
+ *    2.1)Animated list
+ * 3)Calendario
+ *    3.1)Ajustar datas
+ * 4) Notificação
+ * 5) Arrumar código
+ */
 
 class BuildTask extends StatefulWidget {
   //TodoModel task;
