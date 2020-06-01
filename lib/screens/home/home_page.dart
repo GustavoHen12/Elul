@@ -3,6 +3,7 @@ import 'package:Elul/screens/routine_dashboard/routine_page.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/screens/widgets/home/activitiCard.dart';
 import 'package:Elul/themes/theme_store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           listOfDay.add(element);
      });
     listOfDay.sort((a, b) => int.parse(a.startTime.substring(0, 2)).compareTo(int.parse(b.startTime.substring(0, 2))));
-    print('> -----${listOfDay}');
+    //print('> -----${listOfDay}');
     return listOfDay;
   }
 
@@ -68,6 +69,8 @@ class _HomePageState extends State<HomePage> {
                 ),
 
               ),
+              Observer(builder: (_)=>
+              
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
@@ -77,6 +80,8 @@ class _HomePageState extends State<HomePage> {
                       child: ActivitiCard(activiti: listOfActivities[index]));
                   },
                   childCount: _getListOfActivities(activities.list, "Thursday").length)
+              )
+              
               ) 
                
             ],

@@ -1,6 +1,7 @@
 import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/models/todoModel.dart';
 import 'package:Elul/screens/home/home_store.dart';
+import 'package:Elul/screens/widgets/home/task.dart';
 import 'package:Elul/screens/widgets/home/todoBox.dart';
 import 'package:Elul/screens/widgets/sizeConfig.dart';
 import 'package:Elul/themes/theme_store.dart';
@@ -47,9 +48,12 @@ class _ActivitiCardState extends State<ActivitiCard> {
       }
     );
   }
+  String _title;
+
   @override
   Widget build(BuildContext context) {
     final taskList = Provider.of<HomeController>(context);
+    _title = widget.activiti.title;
     SizeConfig().init(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -73,8 +77,7 @@ class _ActivitiCardState extends State<ActivitiCard> {
                             widget.activiti.startTime,
                             widget.activiti.endTime),
                 Observer(builder: (_)=>
-                  Center(child: Text(taskList.list.toString()),)
-                )
+                  Center (child: BuildTask(tasks: taskList.list ,activiti: _title)),)
                 //_buildTodoView()
               ]
             ),
