@@ -26,6 +26,7 @@ class _ActivitiCardState extends State<ActivitiCard> {
     theme ??= Provider.of<ThemeStore>(context);
   }
 
+  //com base na duração da atividade, retorna o tamanho que esta deve ter
   double _getHeight()
   {
     int hours = int.parse(widget.activiti.endTime.substring(0, 2)) -
@@ -48,12 +49,11 @@ class _ActivitiCardState extends State<ActivitiCard> {
       }
     );
   }
-  String _title;
+
 
   @override
   Widget build(BuildContext context) {
     final taskList = Provider.of<HomeController>(context);
-    _title = widget.activiti.title;
     SizeConfig().init(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -73,12 +73,16 @@ class _ActivitiCardState extends State<ActivitiCard> {
             width: double.infinity,
             child: Column(
               children: <Widget>[
+                //header do card (titulo da atividade e horario)
                 _getHeader(widget.activiti.title,
                             widget.activiti.startTime,
                             widget.activiti.endTime),
-                Observer(builder: (_)=>
-                  Center (child: BuildTask(tasks: taskList.list ,activiti: _title)),)
-                //_buildTodoView()
+                Observer(
+                  builder: (_)=>
+                    BuildTasks(
+                      tasks: taskList.list,
+                      activiti: widget.activiti.title),
+                )
               ]
             ),
           )
@@ -94,16 +98,11 @@ class _ActivitiCardState extends State<ActivitiCard> {
       width: double.infinity,
       height: SizeConfig.blockSizeVertical*6,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-        Container(
-          alignment: Alignment.bottomRight,
-          child:
-            Text(title, style:theme.theme.textTheme.button),),
-        Container(
-          alignment: Alignment.bottomRight,
-          child: 
-            Text('$start - $end', style: theme.theme.textTheme.bodyText2,))
-        ]),
+          Text(title, style:theme.theme.textTheme.button),
+          Text('$start - $end', style: theme.theme.textTheme.bodyText2,)
+      ]),
     );
 
   }

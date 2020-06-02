@@ -7,7 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-//theme.toggleTheme
+
 class HomePage extends StatefulWidget {
   
   @override
@@ -24,12 +24,12 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
     theme ??= Provider.of<ThemeStore>(context);
   }
-
+  //recebe um dia e a lista de atividades
+  //retorna uma lista com as ativades do dia
   List _getListOfActivities(List lista, String day)
   {
     List list = new List.from(lista);
     List listOfDay =  new List();
-    print('# ${list.length}');
     list.forEach((element) {
         if(element.days.contains(day))
           listOfDay.add(element);
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         child: 
           CustomScrollView(
             slivers: <Widget>[
-              //APP BAR 
+              //APP BAR com efeito
               SliverAppBar(
                 floating: true,
                 pinned: true,
@@ -69,19 +69,18 @@ class _HomePageState extends State<HomePage> {
                 ),
 
               ),
-              Observer(builder: (_)=>
-              
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                       List listOfActivities = _getListOfActivities(activities.list, "Thursday");
-                    return Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: ActivitiCard(activiti: listOfActivities[index]));
-                  },
-                  childCount: _getListOfActivities(activities.list, "Thursday").length)
-              )
-              
+              Observer(
+              builder: (_)=>
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                        List listOfActivities = _getListOfActivities(activities.list, "Thursday");
+                      return Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: ActivitiCard(activiti: listOfActivities[index]));
+                    },
+                    childCount: _getListOfActivities(activities.list, "Thursday").length)
+                )
               )                
             ],
           )
@@ -111,7 +110,7 @@ class _HomePageState extends State<HomePage> {
           child: Text(theme.isDark ? 'Light Mode':'Dark Mode'),
           value: 1,),
         PopupMenuItem(
-          child: Text('Portuguese'),
+          child: Text('Portuguese'),//PARA FAZER
           value: 2,),
         PopupMenuItem(
           child: Text(_removeMode ? 'Normal' : 'Remove'),
@@ -166,47 +165,3 @@ class _HomePageState extends State<HomePage> {
       );
   }
 }
-
-// class BuildTodos extends StatefulWidget {
-//   final String day;
-//   BuildTodos({@required this.day});
-
-//   @override
-//   _BuildTodos createState() => _BuildTodos();
-// }
-
-// class _BuildTodos extends State<BuildTodos> {
-//   ThemeStore theme;
-
-//   @override
-//   void didChangeDependencies() {
-//     super.didChangeDependencies();
-//     theme ??= Provider.of<ThemeStore>(context);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) { 
-//     final activities = Provider.of<RoutineController>(context);
-//     List listOfActivities = _getListOfActivities(activities.list);
-//     return ListView.builder(
-//       itemCount: listOfActivities.length,
-//       itemBuilder: (context, index){
-//         return Container(child: ActivitiCard(activiti: listOfActivities[index]));
-//       })
-//     ;
-//   }
-
-//   List _getListOfActivities(List lista)
-//   {
-//     List list = new List.from(lista);
-//     List listOfDay =  new List();
-//     print('# ${list.length}');
-//     list.forEach((element) {
-//         if(element.days.contains(widget.day))
-//           listOfDay.add(element);
-//      });
-//     listOfDay.sort((a, b) => int.parse(a.startTime.substring(0, 2)).compareTo(int.parse(b.startTime.substring(0, 2))));
-//     print('> -----${listOfDay}');
-//     return listOfDay;
-//   }
-// }

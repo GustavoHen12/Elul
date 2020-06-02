@@ -20,14 +20,13 @@ import 'package:provider/provider.dart';
  * 5) Arrumar código
  */
 
-class BuildTask extends StatefulWidget {
-  //TodoModel task;
+class BuildTasks extends StatefulWidget {
   ObservableList<TodoModel> tasks;
   String activiti;
-  BuildTask({@required this.tasks, @required this.activiti});
+  BuildTasks({@required this.tasks, @required this.activiti});
 
   @override
-  _BuildTaskState createState() => _BuildTaskState();
+  _BuildTasksState createState() => _BuildTasksState();
 }
 
 double _getHeigh (List tasks, String activiti)
@@ -41,11 +40,11 @@ double _getHeigh (List tasks, String activiti)
   return count*40.0;
 }
 
-class _BuildTaskState extends State<BuildTask> {
+class _BuildTasksState extends State<BuildTasks> {
   
   ThemeStore theme;
   
-  bool _removeMode = false;
+  bool _removeMode = true;
 
   @override
   void didChangeDependencies() {
@@ -56,7 +55,6 @@ class _BuildTaskState extends State<BuildTask> {
   @override
   Widget build(BuildContext context) {
     final taskList = Provider.of<HomeController>(context);
-    //ObservableList taskList = widget.tasks;
     return Observer(
       builder: (_)=>
         SizedBox(
@@ -65,8 +63,9 @@ class _BuildTaskState extends State<BuildTask> {
           child: ListView.builder(
             itemCount: taskList.list.length,
             itemBuilder: (context, index){
+              //se a atividade da tarefa corresponde a atividade do card
               if(taskList.list[index].activitie == widget.activiti)
-                return Observer( builder: (_)=>_buildTask(taskList.list[index]) );
+                return Observer( builder: (_)=>_BuildTasks(taskList.list[index]) );
               else 
                 return Container();
             }),
@@ -86,9 +85,10 @@ class _BuildTaskState extends State<BuildTask> {
     );
   }
 
-  Widget _buildTask(TodoModel task)
+  Widget _BuildTasks(TodoModel task)
   {
     final taskList = Provider.of<HomeController>(context);
+    //se esta no modo remove exibe os botoes para remover e editar
     Widget _removeWidget = _removeMode ? Container(key: ValueKey(1)) :
       Row(
         key: ValueKey(2),
@@ -110,7 +110,7 @@ class _BuildTaskState extends State<BuildTask> {
                                     duration: Duration(seconds: 2),
                                   )
                                 );
-                                } 
+                              } 
                     ) 
         ]
       );
@@ -121,6 +121,7 @@ class _BuildTaskState extends State<BuildTask> {
     }
     if(task.title == null)
       return Container();
+
     theme ??= Provider.of<ThemeStore>(context);
     
     return Container(

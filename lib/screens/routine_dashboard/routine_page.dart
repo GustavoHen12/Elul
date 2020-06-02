@@ -17,7 +17,10 @@ class RoutinePage extends StatefulWidget {
   _RoutinePageState createState() => _RoutinePageState();
 }
 
-
+/*
+ * PARTE PRINCIPAL DA PAGINA,
+ * Configura a navbar e o floatButton
+ */
 class _RoutinePageState extends State<RoutinePage> {
   ThemeStore theme;
   final RoutineController activities =  RoutineController();
@@ -52,13 +55,10 @@ class _RoutinePageState extends State<RoutinePage> {
       ),
 
       body: 
-        //Observer(
-        //builder: (_)=>  
         new SafeArea(
         child: Column(
           children: <Widget>[
-            //_buildTop(),
-          //  Container(child: Text(activities.itemsTotal.toString()),),
+            //lista com os dias
             ActivitiList(),
           ],)
       //  )
@@ -77,7 +77,9 @@ class _RoutinePageState extends State<RoutinePage> {
   }
 }
 
-
+/*
+ * Constroi os dias
+ */
 class ActivitiList extends StatefulWidget {
   @override
   _ActivitiListState createState() => _ActivitiListState();
@@ -113,6 +115,9 @@ class _ActivitiListState extends State<ActivitiList> {
   }
 }
 
+/*
+ * Constroi os cards de atividades para cada dia
+ */
 class BuildDay extends StatefulWidget {
   final String day;
   final List activities;
@@ -130,6 +135,7 @@ class _BuildDayState extends State<BuildDay> {
     super.didChangeDependencies();
     theme ??= Provider.of<ThemeStore>(context);
   }
+  //calcula o a altura necessaria para colocar todos os card do dia
   _getSizeH()
   {
     int quant = 0;
@@ -141,7 +147,6 @@ class _BuildDayState extends State<BuildDay> {
   }
   @override
   Widget build(BuildContext context) { 
-    //final activities = Provider.of<RoutineController>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [ 
@@ -149,19 +154,20 @@ class _BuildDayState extends State<BuildDay> {
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20), 
           child: Text(widget.day, style: theme.theme.textTheme.headline3,)
         ),
-        Observer(builder: (_)=>
-        SizedBox(
-        height: _getSizeH(),
-        child: 
-        ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: widget.activities.length,
-          itemBuilder: (context, index){
-              if(widget.activities[index].days.contains(widget.day))
-                  return RoutineCard(activiti: widget.activities[index]);
-              else 
-                  return Container();
-          })),)
+        Observer(
+          builder: (_)=>
+            SizedBox(
+            height: _getSizeH(),
+            child: 
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: widget.activities.length,
+              itemBuilder: (context, index){
+                  if(widget.activities[index].days.contains(widget.day))
+                      return RoutineCard(activiti: widget.activities[index]);
+                  else 
+                      return Container();
+              })),)
     ]);
   }
 }
