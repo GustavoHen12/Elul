@@ -15,8 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _removeMode = false;
-
+  
   ThemeStore theme;
   
   @override
@@ -41,10 +40,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final activities = Provider.of<RoutineController>(context);
+    DateTime selectedDate = DateTime.now();
     return Scaffold(
       backgroundColor: theme.theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
-              onPressed: (){},
+              onPressed: ()async{
+                final DateTime picked = await showDatePicker(
+                    context: context,
+                    initialDate: selectedDate,
+                    firstDate: DateTime(2015, 8),
+                    lastDate: DateTime(2101));
+                if (picked != null && picked != selectedDate)
+                  setState(() {
+                    selectedDate = picked;
+                  });
+              },
               child: Icon(ElulIcons.calendar_icon, color: theme.theme.iconTheme.color,),),
       body: new SafeArea(
         child: 
@@ -98,12 +108,6 @@ class _HomePageState extends State<HomePage> {
         {
           theme.toggleTheme();
         }
-        else if(value == 3)
-        {
-          setState(() {
-            _removeMode = !_removeMode;
-          });
-        }
       },
       itemBuilder: (context)=>[
         PopupMenuItem(
@@ -112,9 +116,6 @@ class _HomePageState extends State<HomePage> {
         PopupMenuItem(
           child: Text('Portuguese'),//PARA FAZER
           value: 2,),
-        PopupMenuItem(
-          child: Text(_removeMode ? 'Normal' : 'Remove'),
-          value: 3,)
       ]);
   }
   

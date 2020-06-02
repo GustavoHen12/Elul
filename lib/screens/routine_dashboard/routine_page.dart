@@ -41,7 +41,7 @@ class _RoutinePageState extends State<RoutinePage> {
       backgroundColor: theme.theme.backgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(ElulIcons.backarrow_icon, size: 22,), 
+          icon: Icon(ElulIcons.backarrow_icon, size: 22,color: theme.theme.buttonColor,), 
           onPressed:(){Navigator.pop(context);},
           ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
