@@ -1,8 +1,6 @@
-import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/models/timeStr.dart';
 import 'package:Elul/models/todoModel.dart';
 import 'package:Elul/screens/home/home_store.dart';
-import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +25,7 @@ class _TodoBoxState extends State<TodoBox> {
   String _day;//recebe
   String _time = '';//pode ser null
   String _activitie;//recebe
-  bool _check;//sai false
+  bool _check = false;//sai false
 
   //converte de TimeOf Day para String e vice versa
   Time_Str timeConverter = new Time_Str();
@@ -48,6 +46,11 @@ class _TodoBoxState extends State<TodoBox> {
     //ou seja, se é um novo ou um ja existente
     _todo = widget.todo ?? TodoModel();
     _textController.text = _todo.title;
+    //inicia variaveis
+    _title = (_todo == null) ? _todo.title : '';
+    _day = widget.day;
+    _time = (_todo == null) ? _todo.time : '';
+    _activitie = widget.activiti;
   }
   
   
@@ -113,11 +116,11 @@ class _TodoBoxState extends State<TodoBox> {
     }
     else
     {
-      // widget.activiti.days = _days; 
-      // widget.activiti.title = _title; 
-      // widget.activiti.startTime = _start; 
-      // widget.activiti.endTime = _end;
-      await list.update(task);
+      widget.todo.title = _title;
+      widget.todo.time = _time;
+      widget.todo.check = _check;
+
+      await list.update(widget.todo);
     }
   }
 

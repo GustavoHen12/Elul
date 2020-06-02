@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _removeMode = false;
 
   ThemeStore theme;
   
@@ -34,7 +35,6 @@ class _HomePageState extends State<HomePage> {
           listOfDay.add(element);
      });
     listOfDay.sort((a, b) => int.parse(a.startTime.substring(0, 2)).compareTo(int.parse(b.startTime.substring(0, 2))));
-    //print('> -----${listOfDay}');
     return listOfDay;
   }
 
@@ -82,8 +82,7 @@ class _HomePageState extends State<HomePage> {
                   childCount: _getListOfActivities(activities.list, "Thursday").length)
               )
               
-              ) 
-               
+              )                
             ],
           )
     ));
@@ -100,6 +99,12 @@ class _HomePageState extends State<HomePage> {
         {
           theme.toggleTheme();
         }
+        else if(value == 3)
+        {
+          setState(() {
+            _removeMode = !_removeMode;
+          });
+        }
       },
       itemBuilder: (context)=>[
         PopupMenuItem(
@@ -109,8 +114,8 @@ class _HomePageState extends State<HomePage> {
           child: Text('Portuguese'),
           value: 2,),
         PopupMenuItem(
-          child: Text('Delete All'),
-          value: 2,)
+          child: Text(_removeMode ? 'Normal' : 'Remove'),
+          value: 3,)
       ]);
   }
   
