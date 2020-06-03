@@ -6,6 +6,7 @@ import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 /**
@@ -23,7 +24,8 @@ import 'package:provider/provider.dart';
 class BuildTasks extends StatefulWidget {
   ObservableList<TodoModel> tasks;
   String activiti;
-  BuildTasks({@required this.tasks, @required this.activiti});
+  DateTime day;
+  BuildTasks({@required this.tasks, @required this.activiti, @required this.day});
 
   @override
   _BuildTasksState createState() => _BuildTasksState();
@@ -64,7 +66,8 @@ class _BuildTasksState extends State<BuildTasks> {
             itemCount: taskList.list.length,
             itemBuilder: (context, index){
               //se a atividade da tarefa corresponde a atividade do card
-              if(taskList.list[index].activitie == widget.activiti)
+              if((taskList.list[index].activitie == widget.activiti) &&
+                (taskList.list[index].day == DateFormat('EEE, d MMMM').format(widget.day)))
                 return Observer( builder: (_)=>_BuildTasks(taskList.list[index]) );
               else 
                 return Container();

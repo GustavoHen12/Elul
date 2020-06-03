@@ -17,7 +17,6 @@ environment:
   sdk: ">=2.5.2 <3.0.0"
 
 dependencies:
-  circular_check_box: ^1.0.2
   #json_serializable: ^3.3.0
   #dart_json_mapper: ^1.5.10
   flutter_launcher_icons: "^0.7.0"

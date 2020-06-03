@@ -17,11 +17,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   
   ThemeStore theme;
-  
+  DateTime _day;
+  String _weekday;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     theme ??= Provider.of<ThemeStore>(context);
+  }
+
+  @override
+  void initState() { 
+    super.initState();
+    _day = DateTime.now();
+    _weekday = DateFormat('EEEE').format(DateTime.now());
   }
   //recebe um dia e a lista de atividades
   //retorna uma lista com as ativades do dia
@@ -50,9 +59,12 @@ class _HomePageState extends State<HomePage> {
                     initialDate: selectedDate,
                     firstDate: DateTime(2015, 8),
                     lastDate: DateTime(2101));
+                // print(picked);
+                // print('${DateFormat('EEEE').format(picked)}');
                 if (picked != null && picked != selectedDate)
                   setState(() {
-                    selectedDate = picked;
+                    _day = picked;
+                    _weekday = DateFormat('EEEE').format(picked);
                   });
               },
               child: Icon(ElulIcons.calendar_icon, color: theme.theme.iconTheme.color,),),
@@ -77,19 +89,18 @@ class _HomePageState extends State<HomePage> {
                   centerTitle: true,
                   background: _buildDayDescription(),
                 ),
-
               ),
               Observer(
               builder: (_)=>
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-                        List listOfActivities = _getListOfActivities(activities.list, "Thursday");
+                        List listOfActivities = _getListOfActivities(activities.list, _weekday);
                       return Container(
                         margin: EdgeInsets.only(top: 10),
-                        child: ActivitiCard(activiti: listOfActivities[index]));
+                        child: ActivitiCard(activiti: listOfActivities[index], day: _day));
                     },
-                    childCount: _getListOfActivities(activities.list, "Thursday").length)
+                    childCount: _getListOfActivities(activities.list, _weekday).length)
                 )
               )                
             ],
@@ -122,8 +133,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildDay()
   {
-    var date = DateTime.now();
-    String _date = DateFormat('E, d MMM').format(date);
+    String _date = DateFormat('E, d MMM').format(_day);
 
     return new Container(
       child:

@@ -17,6 +17,8 @@ Um simples app para gerenciamento de rotina, baseado em Todolist (inpirado no Go
 
 ## Links que foram uteis
 
+- [Internacionalização](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+
 - [Dark Mode](https://developer.school/flutter-mobx-dark-light-mode-switcher/)
 - [Hive DB](https://pub.dev/packages/hive)
 - [Themes](https://flutter.dev/docs/cookbook/design/themes)

@@ -7,11 +7,13 @@ import 'package:Elul/screens/widgets/sizeConfig.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ActivitiCard extends StatefulWidget {
   final RoutineModel activiti;
-  ActivitiCard({@required this.activiti});
+  final DateTime day;
+  ActivitiCard({@required this.activiti, @required this.day});
 
   @override
   _ActivitiCardState createState() => _ActivitiCardState();
@@ -60,7 +62,7 @@ class _ActivitiCardState extends State<ActivitiCard> {
       child: 
       GestureDetector(
         onTap: (){
-          dialogBox(activiti: widget.activiti.title, day: '29/12/2020');
+          dialogBox(activiti: widget.activiti.title, day: DateFormat('EEE, d MMMM').format(widget.day));
         },
         child:
           Card(
@@ -81,7 +83,8 @@ class _ActivitiCardState extends State<ActivitiCard> {
                   builder: (_)=>
                     BuildTasks(
                       tasks: taskList.list,
-                      activiti: widget.activiti.title),
+                      activiti: widget.activiti.title,
+                      day: widget.day),
                 )
               ]
             ),
