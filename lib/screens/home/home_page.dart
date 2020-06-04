@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   ThemeStore theme;
   DateTime _day;
   String _weekday;
+  bool _todayOrTomorrow = true;
 
   @override
   void didChangeDependencies() {
@@ -31,7 +32,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _day = DateTime.now();
     _weekday = DateFormat('EEEE').format(DateTime.now());
+    _todayOrTomorrow = true;
   }
+  Widget _void = Container();
+
   //recebe um dia e a lista de atividades
   //retorna uma lista com as ativades do dia
   List _getListOfActivities(List lista, String day)
@@ -56,16 +60,21 @@ class _HomePageState extends State<HomePage> {
               onPressed: ()async{
                 final DateTime picked = await showDatePicker(
                     context: context,
-                    initialDate: selectedDate,
+                    initialDate: _day ?? selectedDate,
                     firstDate: DateTime(2015, 8),
                     lastDate: DateTime(2101));
-                // print(picked);
-                // print('${DateFormat('EEEE').format(picked)}');
                 if (picked != null && picked != selectedDate)
-                  setState(() {
-                    _day = picked;
-                    _weekday = DateFormat('EEEE').format(picked);
-                  });
+                {
+                  int diference = picked.day - DateTime.now().day;
+                  if(diference >= 0)
+                    setState(() {
+                      //print("_day");
+                      _day = picked;
+                      _weekday = DateFormat('EEEE').format(picked);
+                      _todayOrTomorrow = diference < 2;
+                      print(_todayOrTomorrow);
+                    });
+                }
               },
               child: Icon(ElulIcons.calendar_icon, color: theme.theme.iconTheme.color,),),
       body: new SafeArea(
@@ -79,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                 snap: false,
                 leading: _popUpMenu(),
                 actions: <Widget>[_buildRoutinBottom()],
-                title: _buildDay(),
+                title: _todayOrTomorrow ? _buildDay() : _void,
                 titleSpacing: 20,
                 backgroundColor: theme.theme.backgroundColor,
                 expandedHeight: 100,
@@ -88,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
                   background: _buildDayDescription(),
+                  title: _todayOrTomorrow ? _void: _buildDay(),
                 ),
               ),
               Observer(
@@ -107,6 +117,9 @@ class _HomePageState extends State<HomePage> {
           )
     ));
   }
+  
+  
+
   Widget _popUpMenu()
   {
     return PopupMenuButton(
@@ -144,17 +157,24 @@ class _HomePageState extends State<HomePage> {
   
   Widget _buildDayDescription()
   {
-    String _day = 'Today';
-    
-    return new SizedBox(
-      height: double.infinity,
-      width: double.infinity,
-      child:Container(
-      alignment: Alignment.bottomCenter,
-      padding: EdgeInsets.only(bottom: 10),
-      child:
-        Text(_day, style: theme.theme.textTheme.headline2)
-    ));
+    int diference = _day.day - DateTime.now().day;
+    if(diference <= 1)
+    {
+      return new SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child:Container(
+        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.only(bottom: 10),
+        child:
+          Text((diference != 1) ? 'Today':'Tomorrow', 
+                style: theme.theme.textTheme.headline2)
+      ));
+    }
+    else
+    {
+      return Container();
+    }
   }
 
   Widget _buildRoutinBottom()
