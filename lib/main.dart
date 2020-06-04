@@ -8,6 +8,7 @@ import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 //initializeDateFormatting('pt_BR', null);
 void main() async {
@@ -42,4 +43,32 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _introScreen() {
+  return Stack(
+    children: <Widget>[
+      SplashScreen(
+        seconds: 5,
+        gradientBackground: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color(0xff1b5299),
+            Color(0xff8da9c4)
+          ],
+        ),
+        navigateAfterSeconds: HomePage(),
+        loaderColor: Colors.transparent,
+      ),
+      Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/logo.png"),
+            fit: BoxFit.none,
+          ),
+        ),
+      ),
+    ],
+  );
 }
