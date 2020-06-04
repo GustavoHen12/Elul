@@ -185,6 +185,22 @@ class _DialogBoxState extends State<DialogBox> {
         ),
     ));
   }
+  bool _isDisable()
+  {
+    bool timeAble = false;
+    int minutes;
+    int hours = int.parse(_end.substring(0, 2)) -
+                int.parse(_start.substring(0, 2));
+    timeAble = hours < 0;
+    //se for o mesmo horario verifica os minutos
+    if(hours == 0)
+    {
+      minutes = int.parse(_end.substring(3, (_end.length-1))) -
+              int.parse(_start.substring(3, (_start.length - 1)));
+      timeAble = minutes < 0;
+    } 
+    return ((_title == null) || (_days.length == 0) || timeAble);
+  }
 
   _save() async {
     RoutineModel routine = RoutineModel(days: _days, title: _title, startTime: _start, endTime: _end);
@@ -216,7 +232,7 @@ class _DialogBoxState extends State<DialogBox> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         FlatButton(child: Text('Save', style: theme.theme.textTheme.headline5,), 
-        onPressed: (){
+        onPressed: _isDisable() ? null : (){
           _save();
           _back();
         },),

@@ -107,7 +107,15 @@ class _TodoBoxState extends State<TodoBox> {
       );
   }
 
+  //verifica se e possivel salvar, ou se ha campos em branco
+  //habilita ou desabilita botao salvar
+  bool _isAble()
+  {
+    return _title == '';
+  }
+
   _save() async {
+
     TodoModel task = TodoModel(day: widget.day, title: _title, time: _time, activitie: widget.activiti);
     final list = Provider.of<HomeController>(context, listen: false);
     if(widget.todo == null)
@@ -141,10 +149,11 @@ class _TodoBoxState extends State<TodoBox> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
           FlatButton(child: Text('Save', style: theme.theme.textTheme.headline5,), 
-          onPressed: (){
-            _save();
-            _back();
-          },),
+            onPressed: _isAble() ? null : (){
+                _save();
+                _back();
+              },
+            ),
           FlatButton(child: Text('Cancel', style: theme.theme.textTheme.headline5), 
           onPressed: (){
             _back();
