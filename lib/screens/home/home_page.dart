@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         if(element.days.contains(day))
           listOfDay.add(element);
      });
-    listOfDay.sort((a, b) => int.parse(a.startTime.substring(0, 2)).compareTo(int.parse(b.startTime.substring(0, 2))));
+    listOfDay.sort((a, b) => int.parse(((a.startTime.split(':'))[0])).compareTo(int.parse((b.startTime.split(':'))[0])));
     return listOfDay;
   }
 

@@ -188,15 +188,18 @@ class _DialogBoxState extends State<DialogBox> {
   bool _isDisable()
   {
     bool timeAble = false;
+    Time_Str timeConfig = new Time_Str();
+    TimeOfDay start = timeConfig.toTime(_start);
+    TimeOfDay end = timeConfig.toTime(_end);
+
     int minutes;
-    int hours = int.parse(_end.substring(0, 2)) -
-                int.parse(_start.substring(0, 2));
+    int hours = end.hour - start.hour;
+
     timeAble = hours < 0;
     //se for o mesmo horario verifica os minutos
     if(hours == 0)
     {
-      minutes = int.parse(_end.substring(3, (_end.length-1))) -
-              int.parse(_start.substring(3, (_start.length - 1)));
+      minutes = end.minute - start.minute;
       timeAble = minutes < 0;
     } 
     return ((_title == null) || (_days.length == 0) || timeAble);

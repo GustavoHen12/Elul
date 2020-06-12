@@ -39,6 +39,10 @@ class Time_Str
   }
 
   toTime(String time){
-    return;
+    var listTime = time.split(':');
+    int hours = int.parse(listTime[0]);
+    int minutes = int.parse(listTime[1]);
+
+    return new TimeOfDay(hour: hours, minute: minutes);
   }
 }

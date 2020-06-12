@@ -1,4 +1,5 @@
 import 'package:Elul/models/routineModel.dart';
+import 'package:Elul/models/timeStr.dart';
 import 'package:Elul/models/todoModel.dart';
 import 'package:Elul/screens/home/home_store.dart';
 import 'package:Elul/screens/widgets/home/task.dart';
@@ -31,13 +32,19 @@ class _ActivitiCardState extends State<ActivitiCard> {
   //com base na duração da atividade, retorna o tamanho que esta deve ter
   double _getHeight()
   {
-    int hours = int.parse(widget.activiti.endTime.substring(0, 2)) -
-                int.parse(widget.activiti.startTime.substring(0, 2));
-    int minutes = int.parse(widget.activiti.endTime.substring(3, 4)) -
-            int.parse(widget.activiti.startTime.substring(3, 4)); 
+    Time_Str timeConfig = new Time_Str();
+
+    TimeOfDay start = timeConfig.toTime(widget.activiti.startTime);
+    TimeOfDay end = timeConfig.toTime(widget.activiti.endTime);
+    int hours = end.hour - start.hour;
+    int minutes = end.minute - start.minute; 
+
     double size = ((SizeConfig.blockSizeVertical*12) * hours) +
-                  ((SizeConfig.blockSizeVertical*2)* minutes) +
+                  ((SizeConfig.blockSizeVertical*0.5)* minutes) +
                   (SizeConfig.blockSizeVertical*6);
+    print(hours);
+    print(minutes);
+    print('> $size');
     return size;
   }
 
