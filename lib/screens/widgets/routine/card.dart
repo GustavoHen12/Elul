@@ -1,16 +1,12 @@
 import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
-import 'package:Elul/screens/widgets/routine/dialogBox.dart';
+import 'package:Elul/screens/widgets/routine/dialogBoxActiviti.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RoutineCard extends StatefulWidget
 {
-  // final String title;
-  // final TimeOfDay start;
-  // final TimeOfDay end;
-  // final days;
   RoutineModel activiti;
   RoutineCard({this.activiti});
 
@@ -37,7 +33,7 @@ class _RoutineCardState extends State<RoutineCard> {
         barrierDismissible: false,
         context: context,
         builder: (_) {
-          return new DialogBox(activiti: widget.activiti);  
+          return new DialogBoxActiviti(activiti: widget.activiti);  
         }
       );
     },
@@ -86,10 +82,6 @@ class _RoutineCardState extends State<RoutineCard> {
 
   Widget _time(String start, String end)
   {
-    // MaterialLocalizations localizations = MaterialLocalizations.of(context);
-    // String startTime = localizations.formatTimeOfDay(start, alwaysUse24HourFormat: false);
-    // String endTime = localizations.formatTimeOfDay(end, alwaysUse24HourFormat: false);
-      
     return Container( 
       margin: EdgeInsets.only(top: 5, bottom: 2),
       child: Text('$start - $end', style: mainTheme.theme.textTheme.bodyText1),
@@ -105,7 +97,6 @@ class _RoutineCardState extends State<RoutineCard> {
     });
 
     return Container(
- //     margin: EdgeInsets.only(left: 10),
       child: Text(dayslist.substring(2, dayslist.length), style: mainTheme.theme.textTheme.bodyText1),
     );
   }

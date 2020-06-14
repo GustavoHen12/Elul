@@ -1,9 +1,9 @@
 import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/models/timeStr.dart';
-import 'package:Elul/models/todoModel.dart';
+import 'package:Elul/models/taskModel.dart';
 import 'package:Elul/screens/home/home_store.dart';
-import 'package:Elul/screens/widgets/home/task.dart';
-import 'package:Elul/screens/widgets/home/todoBox.dart';
+import 'package:Elul/screens/widgets/home/dialogBoxTask.dart';
+import 'package:Elul/screens/widgets/home/tasks.dart';
 import 'package:Elul/screens/widgets/sizeConfig.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +30,20 @@ class _ActivitiCardState extends State<ActivitiCard> {
   }
 
   //com base na duração da atividade, retorna o tamanho que esta deve ter
-  double _getHeight()
+  //ele faz o calculo de dois tamanhos um com base na quantidade de atividades
+  //outro com base na duracao da atividade
+  //retorna o maior
+  double _getHeight(List tasks)
   {
+    int count = 0;
+
+    tasks.forEach((element) {
+      if(element.activitie == widget.activiti.title)
+        count++;
+    });
+
+    double nsize = count*45.0 + 10;
+
     Time_Str timeConfig = new Time_Str();
 
     TimeOfDay start = timeConfig.toTime(widget.activiti.startTime);
@@ -42,19 +54,19 @@ class _ActivitiCardState extends State<ActivitiCard> {
     double size = ((SizeConfig.blockSizeVertical*12) * hours) +
                   ((SizeConfig.blockSizeVertical*0.5)* minutes) +
                   (SizeConfig.blockSizeVertical*6);
-    print(hours);
-    print(minutes);
-    print('> $size');
-    return size;
+
+    if(size > nsize)
+      return size;
+    return nsize;
   }
 
-  dialogBox ({@required String activiti, TodoModel todo, @required String day})
+  dialogBox ({@required String activiti, TaskModel todo, @required String day})
   {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (_) {
-        return new TodoBox(activiti: activiti, todo: todo, day: day);  
+        return new DialogBoxTask(activiti: activiti, todo: todo, day: day);  
       }
     );
   }
@@ -77,24 +89,27 @@ class _ActivitiCardState extends State<ActivitiCard> {
           borderOnForeground: false,
           elevation: 4,
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          child: SizedBox(
-            height: _getHeight(),
-            width: double.infinity,
-            child: Column(
-              children: <Widget>[
-                //header do card (titulo da atividade e horario)
-                _getHeader(widget.activiti.title,
-                            widget.activiti.startTime,
-                            widget.activiti.endTime),
-                Observer(
-                  builder: (_)=>
-                    BuildTasks(
-                      tasks: taskList.list,
-                      activiti: widget.activiti.title,
-                      day: widget.day),
-                )
-              ]
-            ),
+          child:
+            Observer(builder: (_)=>
+            SizedBox(
+              height: _getHeight(taskList.list),
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  //header do card (titulo da atividade e horario)
+                  _getHeader(widget.activiti.title,
+                              widget.activiti.startTime,
+                              widget.activiti.endTime),
+                  Observer(
+                    builder: (_)=>
+                      BuildTasks(
+                        tasks: taskList.list,
+                        activiti: widget.activiti.title,
+                        day: widget.day),
+                  )
+                ]
+              ),
+            )
           )
         )
       )

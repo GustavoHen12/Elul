@@ -21,6 +21,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //utilizamos o provider, para fazer a "ligacao" com os demais arquivos e MobX
+    //Entao aqui e inserido os controllers na arvore
     return MultiProvider(
       providers: [
         Provider<ThemeStore>(

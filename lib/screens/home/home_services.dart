@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:Elul/models/todoModel.dart';
+import 'package:Elul/models/taskModel.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:hive/hive.dart';
 //import 'package:hive_flutter/hive_flutter.dart';
@@ -24,19 +24,19 @@ class HomeService extends Disposable {
     if (!completer.isCompleted) completer.complete(box);
   }
 
-  Future<List<TodoModel>> getAll() async {
+  Future<List<TaskModel>> getAll() async {
     final box = await completer.future;
-    return box.values.map((item) => TodoModel.fromJson(item)).toList();
+    return box.values.map((item) => TaskModel.fromJson(item)).toList();
   }
 
-  Future<TodoModel> add(TodoModel model) async {
+  Future<TaskModel> add(TaskModel model) async {
     final box = await completer.future;
     model.id = box.values.length;
     await box.put(box.values.length, model.toJson());
     return model;
   }
 
-  update(TodoModel model) async {
+  update(TaskModel model) async {
     final box = await completer.future;
     await box.put(model.id, model.toJson());
   }

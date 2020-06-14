@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Elul/screens/widgets/sizeConfig.dart';
 
-class  DialogBox extends StatefulWidget {
+class  DialogBoxActiviti extends StatefulWidget {
   
   RoutineModel activiti;
   //BuildContext context;
   //final RoutineController list;
-  DialogBox ({this.activiti});
+  DialogBoxActiviti ({this.activiti});
 
   @override
-  _DialogBoxState createState() => _DialogBoxState();
+  _DialogBoxActivitiState createState() => _DialogBoxActivitiState();
 }
 
-class _DialogBoxState extends State<DialogBox> {
+class _DialogBoxActivitiState extends State<DialogBoxActiviti> {
   ThemeStore theme;
 
   //dados que serao atualizados 

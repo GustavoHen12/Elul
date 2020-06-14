@@ -2,7 +2,7 @@ import 'package:Elul/icons/elul_icons_icons.dart';
 import 'package:Elul/models/routineModel.dart';
 import 'package:Elul/screens/routine_dashboard/routine_store.dart';
 import 'package:Elul/screens/widgets/routine/card.dart';
-import 'package:Elul/screens/widgets/routine/dialogBox.dart';
+import 'package:Elul/screens/widgets/routine/dialogBoxActiviti.dart';
 import 'package:Elul/screens/widgets/sizeConfig.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
@@ -24,17 +24,10 @@ class RoutinePage extends StatefulWidget {
 class _RoutinePageState extends State<RoutinePage> {
   ThemeStore theme;
   final RoutineController activities =  RoutineController();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    theme ??= Provider.of<ThemeStore>(context);
-  }
-
-
+  
   @override
   Widget build(BuildContext context) {
-    final activities = Provider.of<RoutineController>(context);
+    theme ??= Provider.of<ThemeStore>(context);
     SizeConfig().init(context);
 
     return Scaffold(
@@ -56,12 +49,9 @@ class _RoutinePageState extends State<RoutinePage> {
 
       body: 
         new SafeArea(
-        child: Column(
-          children: <Widget>[
-            //lista com os dias
+        child:
+            //lista com os dias e atividades
             ActivitiList(),
-          ],)
-      //  )
     ));
   }
 
@@ -71,7 +61,7 @@ class _RoutinePageState extends State<RoutinePage> {
       barrierDismissible: false,
       context: context,
       builder: (_) {
-        return new DialogBox(activiti: model);  
+        return new DialogBoxActiviti(activiti: model);  
       }
     );
   }
@@ -90,27 +80,20 @@ class _ActivitiListState extends State<ActivitiList> {
   ThemeStore theme;
   final RoutineController activities =  RoutineController();
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    theme ??= Provider.of<ThemeStore>(context);
-  }
-
   List _days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   
   @override
   Widget build(BuildContext context) {
+    theme ??= Provider.of<ThemeStore>(context);
     final activities = Provider.of<RoutineController>(context);
     return Expanded(
       child: 
-      // Observer(
-      // builder: (_) => 
       ListView.builder(
         itemCount: _days.length,
         itemBuilder: (context, index){
+            //constroi as atividades dos dias
             return BuildDay(day: _days[index], activities: activities.list);
-            }
-        //)
+        }
       ));
   }
 }

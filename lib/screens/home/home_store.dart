@@ -1,4 +1,4 @@
-import 'package:Elul/models/todoModel.dart';
+import 'package:Elul/models/taskModel.dart';
 import 'package:Elul/screens/home/home_services.dart';
 import 'package:mobx/mobx.dart';
 
@@ -19,7 +19,7 @@ abstract class _HomeBase with Store {
   }
 
   @action
-  add(TodoModel model) async {
+  add(TaskModel model) async {
     model = await service.add(model);
     list.add(model);
   }
@@ -31,23 +31,10 @@ abstract class _HomeBase with Store {
   }
 
   @action
-  update(TodoModel model) async {
+  update(TaskModel model) async {
     await service.update(model);
   }
 
-  @action
-  cleanAll() async {
-    await service.clear();
-    list.clear();
-  }
-
   @observable
-  ObservableList<TodoModel> list = ObservableList<TodoModel>();
-
-  @computed
-  int get itemsTotal => list.length;
-
-  @computed
-  //int get itemsTotalCheck => list.where((item) => item.id).length;
-  int get itemsTotalCheck => list.length;
+  ObservableList<TaskModel> list = ObservableList<TaskModel>();
 }

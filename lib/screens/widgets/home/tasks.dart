@@ -1,7 +1,7 @@
-import 'package:Elul/models/todoModel.dart';
+import 'package:Elul/models/taskModel.dart';
 import 'package:Elul/screens/home/home_store.dart';
 import 'package:Elul/screens/widgets/home/checkBox.dart';
-import 'package:Elul/screens/widgets/home/todoBox.dart';
+import 'package:Elul/screens/widgets/home/dialogBoxTask.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,37 +9,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
-/**
- * Fazer:
- * V 1) Update, onLongPress
- * V 2) Remove Mode
- *    2.1)Animated list
- * 
- * 3)Calendario
- *    3.1)Ajustar datas
- * 4) Notificação
- * 5) Arrumar código
- */
 
 class BuildTasks extends StatefulWidget {
-  ObservableList<TodoModel> tasks;
+  ObservableList<TaskModel> tasks;
   String activiti;
   DateTime day;
   BuildTasks({@required this.tasks, @required this.activiti, @required this.day});
 
   @override
   _BuildTasksState createState() => _BuildTasksState();
-}
-
-double _getHeigh (List tasks, String activiti)
-{
-  int count = 0;
-  tasks.forEach((element) {
-    if(element.activitie == activiti)
-      count++;
-  });
-
-  return count*40.0;
 }
 
 class _BuildTasksState extends State<BuildTasks> {
@@ -59,10 +37,9 @@ class _BuildTasksState extends State<BuildTasks> {
     final taskList = Provider.of<HomeController>(context);
     return Observer(
       builder: (_)=>
-        SizedBox(
-          height: _getHeigh(taskList.list, widget.activiti),
-          child: Container( 
+          Expanded( 
           child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             itemCount: taskList.list.length,
             itemBuilder: (context, index){
               //se a atividade da tarefa corresponde a atividade do card
@@ -72,23 +49,22 @@ class _BuildTasksState extends State<BuildTasks> {
               else 
                 return Container();
             }),
-          )
         )
       );
   }
 
-  dialogBox ({@required String activiti, TodoModel todo, @required String day})
+  dialogBox ({@required String activiti, TaskModel todo, @required String day})
   {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (_) {
-        return new TodoBox(activiti: activiti, todo: todo, day: day);  
+        return new DialogBoxTask(activiti: activiti, todo: todo, day: day);  
       }
     );
   }
 
-  Widget _BuildTasks(TodoModel task)
+  Widget _BuildTasks(TaskModel task)
   {
     final taskList = Provider.of<HomeController>(context);
     //se esta no modo remove exibe os botoes para remover e editar

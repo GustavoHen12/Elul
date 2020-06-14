@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todoModel.dart';
+part of 'taskModel.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'todoModel.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$TodoModel on _TodoModel, Store {
-  final _$titleAtom = Atom(name: '_TodoModel.title');
+mixin _$TaskModel on _TaskModel, Store {
+  final _$titleAtom = Atom(name: '_TaskModel.title');
 
   @override
   String get title {
@@ -24,7 +24,7 @@ mixin _$TodoModel on _TodoModel, Store {
     });
   }
 
-  final _$dayAtom = Atom(name: '_TodoModel.day');
+  final _$dayAtom = Atom(name: '_TaskModel.day');
 
   @override
   String get day {
@@ -39,7 +39,7 @@ mixin _$TodoModel on _TodoModel, Store {
     });
   }
 
-  final _$timeAtom = Atom(name: '_TodoModel.time');
+  final _$timeAtom = Atom(name: '_TaskModel.time');
 
   @override
   String get time {
@@ -54,7 +54,7 @@ mixin _$TodoModel on _TodoModel, Store {
     });
   }
 
-  final _$activitieAtom = Atom(name: '_TodoModel.activitie');
+  final _$activitieAtom = Atom(name: '_TaskModel.activitie');
 
   @override
   String get activitie {
@@ -69,7 +69,7 @@ mixin _$TodoModel on _TodoModel, Store {
     });
   }
 
-  final _$checkAtom = Atom(name: '_TodoModel.check');
+  final _$checkAtom = Atom(name: '_TaskModel.check');
 
   @override
   bool get check {

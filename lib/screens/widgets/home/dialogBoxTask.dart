@@ -1,23 +1,23 @@
 import 'package:Elul/models/timeStr.dart';
-import 'package:Elul/models/todoModel.dart';
+import 'package:Elul/models/taskModel.dart';
 import 'package:Elul/screens/home/home_store.dart';
 import 'package:Elul/themes/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Elul/screens/widgets/sizeConfig.dart';
 
-class  TodoBox extends StatefulWidget {
+class  DialogBoxTask extends StatefulWidget {
   
   String activiti;
-  TodoModel todo;
+  TaskModel todo;
   String day;
-  TodoBox ({this.activiti, this.todo, this.day});
+  DialogBoxTask ({this.activiti, this.todo, this.day});
 
   @override
-  _TodoBoxState createState() => _TodoBoxState();
+  _DialogBoxTaskState createState() => _DialogBoxTaskState();
 }
 
-class _TodoBoxState extends State<TodoBox> {
+class _DialogBoxTaskState extends State<DialogBoxTask> {
   ThemeStore theme;
 
   //dados que serao atualizados 
@@ -38,13 +38,13 @@ class _TodoBoxState extends State<TodoBox> {
   //para o text field de titulo
   final _textController = TextEditingController();
   
-  TodoModel _todo;
+  TaskModel _todo;
   @override
   void initState() { 
     super.initState();
     //se não for passado um RoutineModel existente
     //ou seja, se é um novo ou um ja existente
-    _todo = widget.todo ?? TodoModel();
+    _todo = widget.todo ?? TaskModel();
     _textController.text = _todo.title;
     //inicia variaveis
     _title = (_todo == null) ? _todo.title : '';
@@ -116,7 +116,7 @@ class _TodoBoxState extends State<TodoBox> {
 
   _save() async {
 
-    TodoModel task = TodoModel(day: widget.day, title: _title, time: _time, activitie: widget.activiti);
+    TaskModel task = TaskModel(day: widget.day, title: _title, time: _time, activitie: widget.activiti);
     final list = Provider.of<HomeController>(context, listen: false);
     if(widget.todo == null)
     {

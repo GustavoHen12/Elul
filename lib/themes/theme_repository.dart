@@ -22,7 +22,7 @@ class ThemeRepository implements IThemeRepository {
 
   @override
   Future<String> getThemeKey() async {
-    SharedPreferences.setMockInitialValues({});
+   // SharedPreferences.setMockInitialValues({});
     return (await SharedPreferences.getInstance()).getString(ThemeKey.THEME);
   }
 }

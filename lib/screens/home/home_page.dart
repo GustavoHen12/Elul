@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   ThemeStore theme;
   DateTime _day;
   String _weekday;
+  
   bool _todayOrTomorrow = true;
 
   @override
@@ -46,7 +47,8 @@ class _HomePageState extends State<HomePage> {
         if(element.days.contains(day))
           listOfDay.add(element);
      });
-    listOfDay.sort((a, b) => int.parse(((a.startTime.split(':'))[0])).compareTo(int.parse((b.startTime.split(':'))[0])));
+    listOfDay.sort((a, b) => int.parse(((a.startTime.split(':'))[0]))
+                                .compareTo(int.parse((b.startTime.split(':'))[0])));
     return listOfDay;
   }
 
@@ -54,6 +56,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final activities = Provider.of<RoutineController>(context);
     DateTime selectedDate = DateTime.now();
+
     return Scaffold(
       backgroundColor: theme.theme.backgroundColor,
       floatingActionButton: FloatingActionButton(
@@ -68,7 +71,6 @@ class _HomePageState extends State<HomePage> {
                   int diference = picked.day - DateTime.now().day;
                   if(diference >= 0)
                     setState(() {
-                      //print("_day");
                       _day = picked;
                       _weekday = DateFormat('EEEE').format(picked);
                       _todayOrTomorrow = diference < 2;
@@ -76,7 +78,9 @@ class _HomePageState extends State<HomePage> {
                     });
                 }
               },
-              child: Icon(ElulIcons.calendar_icon, color: theme.theme.iconTheme.color,),),
+              child: Icon(ElulIcons.calendar_icon, 
+                    color: theme.theme.iconTheme.color,),),
+      
       body: new SafeArea(
         child: 
           CustomScrollView(
